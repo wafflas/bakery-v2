@@ -1,5 +1,223 @@
 @import "tailwindcss";
 
+@keyframes bounce-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Ripple once animation for hero title */
+@keyframes ripple-bounce-once {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(calc(-12px * var(--ripple-amp, 1)));
+  }
+  60% {
+    transform: translateY(calc(2px * var(--ripple-amp, 1)));
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Container class to scope ripple effect */
+.ripple-once {
+  /* Tuning variables */
+  --ripple-duration: 600ms; /* Total duration per letter */
+  --ripple-delay: 80ms; /* Stagger between letters */
+  --ripple-amp: 1; /* Amplitude multiplier */
+}
+
+.ripple-once > span {
+  display: inline-block; /* Keep layout stable and selectable */
+  will-change: transform;
+}
+
+/* Trigger only when data-animate is true */
+.ripple-once[data-animate="true"] > span {
+  animation: ripple-bounce-once var(--ripple-duration) ease-out forwards;
+  animation-delay: calc(var(--i) * var(--ripple-delay));
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ripple-once > span {
+    animation: none !important;
+  }
+}
+
+/* Slideshow animations */
+@keyframes slideshow-fade {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slideshow-slide {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  20% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideshow-zoom {
+  0% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-slide-left {
+  animation: slide-left 0.5s ease-out;
+}
+
+.animate-slide-right {
+  animation: slide-right 0.5s ease-out;
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+/* Slideshow animation classes */
+.animate-slideshow-fade {
+  animation: slideshow-fade 5s ease-in-out infinite;
+}
+
+.animate-slideshow-slide {
+  animation: slideshow-slide 5s ease-in-out infinite;
+}
+
+.animate-slideshow-zoom {
+  animation: slideshow-zoom 5s ease-in-out infinite;
+}
+
+@keyframes scroll-seamless {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-scroll-seamless {
+  animation: scroll-seamless 20s linear infinite;
+}
+
+@keyframes scroll-perfect {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+.animate-scroll-perfect {
+  animation: scroll-perfect 30s linear infinite;
+  width: 400%; /* Ensure we have enough content */
+}
+
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 30s linear infinite;
+  width: 300%;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -8,13 +226,13 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-firaSans);
+  --font-mono: var(--font-firaSans);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #ffffff;
     --foreground: #ededed;
   }
 }
@@ -22,5 +240,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-firaSans);
 }
