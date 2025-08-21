@@ -22,6 +22,7 @@ const slides = [
     alt: "logo",
   },
 ];
+
 const Slideshow = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
@@ -63,51 +64,61 @@ const Slideshow = () => {
     element.textContent = "";
     element.appendChild(fragment);
 
-    // Tune animation via CSS variables on the element itself
-
     element.style.setProperty("--ripple-duration", "600ms");
     element.style.setProperty("--ripple-delay", "80ms");
     element.style.setProperty("--ripple-amp", "1");
 
-    // Trigger the animation once
     element.setAttribute("data-animate", "true");
   }, []);
 
   return (
-    <div className="relative w-screen h-screen">
+    <div className="relative w-full h-screen">
       <Image
         src={slides[currentSlide].src}
         alt={slides[currentSlide].alt}
-        width={1000}
-        height={1000}
-        className="object-cover w-full h-full transition-all duration-1000 ease-in-out"
+        fill
+        className="object-cover transition-all duration-1000 ease-in-out"
         priority
+        sizes="100vw"
       />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-white">
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-4 text-white px-4 sm:px-6 lg:px-8">
         <Image
           src="/logos/white-logo2.png"
           alt="logo"
-          width={300}
-          height={100}
-          className="pointer-events-none"
+          width={200}
+          height={67}
+          className="pointer-events-none w-32 h-auto sm:w-48 md:w-56 lg:w-64 xl:w-72"
         />
-        <h1 ref={titleRef} className="text-[4rem] font-bold ripple-once">
+
+        <h1
+          ref={titleRef}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold ripple-once text-center leading-tight"
+        >
           Φούρνος Κουγιουμουτζάκης
         </h1>
-        <p className="text-[2rem]">Παραδοσιακός Κρητικός Φούρνος από το 1916</p>
+
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-center max-w-4xl leading-relaxed px-4">
+          Παραδοσιακός Κρητικός Φούρνος από το 1916
+        </p>
+
         <Link
           href="/bakery"
-          className="text-white text-[1.5rem] bg-red-800 p-4 rounded-[20px] mt-4 hover:bg-red-900 transition-all duration-300"
+          className="text-white text-sm sm:text-base md:text-lg lg:text-xl bg-red-800 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-[20px] mt-2 sm:mt-4 hover:bg-red-900 transition-all duration-300 hover:scale-105"
         >
-          Ποιοι είμαστε
+          Ποιοι είμαστε;
         </Link>
       </div>
 
-      <div className="absolute bottom-8 right-8 z-20">
+      {/* Scroll indicator - responsive positioning */}
+      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-20">
         <div className="flex flex-col items-center text-white animate-bounce-slow">
-          <span className="text-sm font-medium mb-2 opacity-75">Scroll</span>
-          <ChevronDown size={24} className="opacity-75" />
+          <span className="text-xs sm:text-sm font-medium mb-1 sm:mb-2 opacity-75">
+            Scroll
+          </span>
+          <ChevronDown size={20} className="opacity-75 sm:hidden" />
+          <ChevronDown size={24} className="opacity-75 hidden sm:block" />
         </div>
       </div>
     </div>
