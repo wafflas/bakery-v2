@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { gsap } from "gsap";
 import Logo from "../components/Logo";
 import { links, socialLinks } from "../data/links";
 import { Menu, X } from "lucide-react";
@@ -11,6 +12,81 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const isNotHomePage = pathname !== "/";
+
+  // Mobile menu refs
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  // Mobile menu animation
+  useLayoutEffect(() => {
+    if (mobileMenuRef.current) {
+      if (isMobileMenuOpen) {
+        // Get menu items for staggered animation
+        const menuItems = mobileMenuRef.current.querySelectorAll(".menu-item");
+        const socialIcons =
+          mobileMenuRef.current.querySelectorAll(".social-icon");
+
+        const tl = gsap.timeline();
+
+        // Show and slide in the menu panel
+        tl.set(mobileMenuRef.current, { display: "block" })
+          .fromTo(
+            mobileMenuRef.current,
+            { x: "100%" },
+            { x: "0%", duration: 0.4, ease: "power2.out" }
+          )
+          // Animate menu items with stagger
+          .fromTo(
+            menuItems,
+            { opacity: 0, x: 30 },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.3,
+              stagger: 0.1,
+              ease: "power2.out",
+            },
+            "-=0.2"
+          )
+          // Animate social icons
+          .fromTo(
+            socialIcons,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              stagger: 0.05,
+              ease: "power2.out",
+            },
+            "-=0.1"
+          );
+      } else {
+        // Slide out animation
+        gsap.to(mobileMenuRef.current, {
+          x: "100%",
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => {
+            if (mobileMenuRef.current) {
+              gsap.set(mobileMenuRef.current, { display: "none" });
+            }
+          },
+        });
+      }
+    }
+
+    // Overlay animation
+    if (overlayRef.current) {
+      if (isMobileMenuOpen) {
+        gsap.fromTo(
+          overlayRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3, ease: "power2.out" }
+        );
+      }
+    }
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     if (isNotHomePage) {
@@ -100,7 +176,7 @@ const Navbar = () => {
             {/* Hamburger Menu Button - Only visible on mobile */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100 hover:bg-opacity-20 transition-all duration-200 ml-2"
+              className="lg:hidden p-2 rounded-md cursor-pointer transition-all duration-200 ml-2"
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
@@ -112,16 +188,17 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-blend-saturation bg-opacity-50 z-40 lg:hidden"
+          ref={overlayRef}
+          className="fixed inset-0  bg-opacity-20 z-40 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
       {/* Mobile Menu Slide Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-1/2 max-w-sm bg-white shadow-2xl z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        ref={mobileMenuRef}
+        className="fixed top-0 right-0 h-full w-1/2 max-w-sm bg-white shadow-2xl z-50 lg:hidden"
+        style={{ display: "none" }}
       >
         {/* Menu Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -143,7 +220,7 @@ const Navbar = () => {
               <Link
                 href={link.href}
                 key={link.label}
-                className={`block px-6 py-4 text-lg font-bold transition-all duration-200 ${
+                className={`menu-item block px-6 py-4 text-lg font-bold transition-all duration-200 ${
                   isActive
                     ? "text-red-800 bg-red-50 border-r-4 border-red-800"
                     : "text-[#3d3b32] hover:text-red-800 hover:bg-gray-50"
@@ -166,7 +243,7 @@ const Navbar = () => {
                   href={link.href}
                   key={link.label}
                   target="_blank"
-                  className="text-2xl text-[#3d3b32] hover:text-red-800 hover:scale-110 transition-all duration-300"
+                  className="social-icon text-2xl text-[#3d3b32] hover:text-red-800 hover:scale-110 transition-all duration-300"
                 >
                   <IconComponent />
                 </Link>

@@ -1,125 +1,305 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { gsap } from "gsap";
 
 const slides = [
-  {
-    src: "/images/slideshow/isxsnika.jpg",
-    alt: "logo",
-  },
-  {
-    src: "/images/slideshow/zumwma.jpg",
-    alt: "logo",
-  },
-  {
-    src: "/images/slideshow/pswmi1slide.jpg",
-    alt: "logo",
-  },
-  {
-    src: "/images/slideshow/kalathi.jpg",
-    alt: "logo",
-  },
+  { src: "/images/slideshow/isxsnika.jpg", alt: "Ισχυρώ Νίκα" },
+  { src: "/images/slideshow/zumwma.jpg", alt: "Ζύμωμα" },
+  { src: "/images/slideshow/pswmi1slide.jpg", alt: "Ψωμί" },
+  { src: "/images/slideshow/kalathi.jpg", alt: "Καλάθι" },
 ];
 
 const Slideshow = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
-      }, 1000);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  // Refs
+  const containerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const rippleDoneRef = useRef(false);
 
-  // Split text into spans and trigger a one-time ripple wave animation on mount
-  useEffect(() => {
-    const element = titleRef.current;
-    if (!element) return;
+  // Prepare title spans BEFORE reveal to avoid flicker
+  const prepareTitleSpans = () => {
+    if (!titleRef.current) return;
+    const originalText = titleRef.current.textContent || "";
+    const words = originalText.split(" ");
 
-    if (typeof window !== "undefined") {
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      if (prefersReduced) return;
-    }
+    let charIndex = 0;
+    const wordElements = words.map((word) => {
+      const chars = Array.from(word).map((char) => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.style.display = "inline-block";
+        span.style.opacity = "0";
+        span.style.transform = "translateY(10px)";
+        span.dataset.char = "1"; // mark as a char
+        span.setAttribute("data-char-index", String(charIndex++));
+        return span;
+      });
 
-    const originalText = (element.textContent ?? "").trim();
-    element.setAttribute("aria-label", originalText);
-
-    const fragment = document.createDocumentFragment();
-    const characters = Array.from(originalText);
-    characters.forEach((char, index) => {
-      const span = document.createElement("span");
-      span.textContent = char === " " ? "\u00A0" : char;
-      span.style.setProperty("--i", String(index));
-      span.setAttribute("aria-hidden", "true");
-      fragment.appendChild(span);
+      const wordWrapper = document.createElement("span");
+      wordWrapper.style.display = "inline-block";
+      wordWrapper.style.marginRight = "0.25em";
+      chars.forEach((char) => wordWrapper.appendChild(char));
+      return wordWrapper;
     });
 
-    element.textContent = "";
-    element.appendChild(fragment);
+    titleRef.current.innerHTML = "";
+    wordElements.forEach((el) => titleRef.current!.appendChild(el));
+  };
 
-    element.style.setProperty("--ripple-duration", "600ms");
-    element.style.setProperty("--ripple-delay", "80ms");
-    element.style.setProperty("--ripple-amp", "1");
+  // Ripple only once when title first shows
+  const animateRippleOnce = () => {
+    if (!titleRef.current || rippleDoneRef.current) return;
+    rippleDoneRef.current = true;
 
-    element.setAttribute("data-animate", "true");
+    const chars = titleRef.current.querySelectorAll<HTMLElement>(
+      'span[data-char="1"]'
+    );
+    const tl = gsap.timeline({ delay: 0.1 });
+
+    tl.to(chars, {
+      opacity: 1,
+      y: 0,
+      duration: 0.35,
+      ease: "power2.out",
+      stagger: 0.04,
+    });
+  };
+
+  // Entrance animation
+  useLayoutEffect(() => {
+    prepareTitleSpans();
+
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    gsap.set(
+      [
+        logoRef.current,
+        titleRef.current,
+        subtitleRef.current,
+        buttonRef.current,
+      ],
+      {
+        opacity: 0,
+        y: 30,
+      }
+    );
+    gsap.set(overlayRef.current, { opacity: 0 });
+
+    tl.to(overlayRef.current, { opacity: 1, duration: 1, ease: "power2.out" })
+      .to(
+        logoRef.current,
+        { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" },
+        "-=0.6"
+      )
+      .to(
+        titleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          onComplete: animateRippleOnce, // ripple starts now; title never disappears
+        },
+        "-=0.5"
+      )
+      .to(
+        subtitleRef.current,
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        "-=0.4"
+      )
+      .to(
+        buttonRef.current,
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        "-=0.4"
+      );
   }, []);
 
+  // Low-key crossfade between slides
+  const animateSlideChange = (newSlideIndex: number) => {
+    if (isAnimating || newSlideIndex === currentSlide) return;
+
+    setIsAnimating(true);
+
+    const currentEl = imageRefs.current[currentSlide];
+    const nextEl = imageRefs.current[newSlideIndex];
+
+    if (currentEl && nextEl) {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setCurrentSlide(newSlideIndex);
+          setIsAnimating(false);
+        },
+      });
+
+      tl.to(currentEl, { opacity: 0, duration: 1.0, ease: "sine.inOut" }, 0).to(
+        nextEl,
+        { opacity: 1, duration: 1.0, ease: "sine.inOut" },
+        0
+      );
+    } else {
+      setCurrentSlide(newSlideIndex);
+      setIsAnimating(false);
+    }
+  };
+
+  // Auto slideshow
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isAnimating) {
+        const nextSlide = (currentSlide + 1) % slides.length;
+        animateSlideChange(nextSlide);
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentSlide, isAnimating]);
+
+  const handleButtonHover = (isHover: boolean) => {
+    if (!buttonRef.current) return;
+    gsap.to(buttonRef.current, {
+      scale: isHover ? 1.05 : 1,
+      y: isHover ? -3 : 0,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
+
+  const handleIndicatorClick = (index: number) => {
+    if (!isAnimating && index !== currentSlide) animateSlideChange(index);
+  };
+
   return (
-    <div className="relative w-full h-screen">
-      <Image
-        src={slides[currentSlide].src}
-        alt={slides[currentSlide].alt}
-        fill
-        className="object-cover transition-all duration-1000 ease-in-out"
-        priority
-        sizes="100vw"
+    <div
+      ref={containerRef}
+      className="relative w-full h-screen overflow-hidden"
+    >
+      {/* Background Images */}
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          ref={(el) => {
+            imageRefs.current[index] = el;
+          }}
+          className="absolute inset-0"
+          style={{
+            zIndex: index === currentSlide ? 2 : 1,
+            opacity: index === currentSlide ? 1 : 0,
+          }}
+        >
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            fill
+            className="object-cover"
+            priority={index === 0}
+            sizes="100vw"
+          />
+        </div>
+      ))}
+
+      {/* Overlay gradient */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 z-10"
       />
 
-
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-4 text-white px-4 sm:px-6 lg:px-8">
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-4 text-white px-4 sm:px-6 lg:px-8 z-20">
         <Image
+          ref={logoRef}
           src="/logos/white-logo2.png"
-          alt="logo"
+          alt="Logo Κουγιουμουτζάκης"
           width={200}
           height={67}
-          className="pointer-events-none w-32 h-auto sm:w-48 md:w-56 lg:w-64 xl:w-72"
+          className="pointer-events-none w-32 h-auto sm:w-48 md:w-56 lg:w-64 xl:w-72 drop-shadow-2xl"
         />
 
         <h1
           ref={titleRef}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold ripple-once text-center leading-tight"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center leading-tight"
+          style={{ textShadow: "0 4px 8px rgba(0, 0, 0, 0.3)" }}
         >
           Φούρνος Κουγιουμουτζάκης
         </h1>
 
-        <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-center max-w-4xl leading-relaxed px-4">
+        <p
+          ref={subtitleRef}
+          className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-center max-w-4xl leading-relaxed px-4 drop-shadow-md"
+        >
           Παραδοσιακός Κρητικός Φούρνος από το 1916
         </p>
 
         <Link
+          ref={buttonRef}
           href="/bakery"
-          className="text-white text-sm sm:text-base md:text-lg lg:text-xl bg-red-800 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-[20px] mt-2 sm:mt-4 hover:bg-red-900 transition-all duration-300 hover:scale-105"
+          className="text-white text-sm sm:text-base md:text-lg lg:text-xl bg-red-800 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-[20px] mt-2 sm:mt-4 hover:bg-red-900 transition-colors duration-300 shadow-lg cursor-pointer"
+          onMouseEnter={() => handleButtonHover(true)}
+          onMouseLeave={() => handleButtonHover(false)}
         >
           Ποιοι είμαστε;
         </Link>
       </div>
 
-      {/* Scroll indicator - responsive positioning */}
-      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-20">
+      {/* Scroll indicator */}
+      <div
+        className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-30"
+      >
         <div className="flex flex-col items-center text-white animate-bounce-slow">
-          <span className="text-xs sm:text-sm font-medium mb-1 sm:mb-2 opacity-75">
+          <span className="text-xs sm:text-sm font-medium mb-1 sm:mb-2 opacity-75 drop-shadow-md">
             Scroll
           </span>
-          <ChevronDown size={20} className="opacity-75 sm:hidden" />
-          <ChevronDown size={24} className="opacity-75 hidden sm:block" />
+          <ChevronDown
+            size={20}
+            className="opacity-75 sm:hidden drop-shadow-md"
+          />
+          <ChevronDown
+            size={24}
+            className="opacity-75 hidden sm:block drop-shadow-md"
+          />
         </div>
+      </div>
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleIndicatorClick(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+              index === currentSlide
+                ? "bg-white scale-125 shadow-lg"
+                : "bg-white/50 hover:bg-white/70 hover:scale-110"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+            onMouseEnter={(e) => {
+              if (index !== currentSlide) {
+                gsap.to(e.currentTarget, {
+                  scale: 1.1,
+                  duration: 0.2,
+                  ease: "power2.out",
+                });
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (index !== currentSlide) {
+                gsap.to(e.currentTarget, {
+                  scale: 1,
+                  duration: 0.2,
+                  ease: "power2.out",
+                });
+              }
+            }}
+          />
+        ))}
       </div>
     </div>
   );
