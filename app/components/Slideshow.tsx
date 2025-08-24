@@ -1,6 +1,12 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { gsap } from "gsap";
@@ -125,32 +131,35 @@ const Slideshow = () => {
   }, []);
 
   // Low-key crossfade between slides
-  const animateSlideChange = (newSlideIndex: number) => {
-    if (isAnimating || newSlideIndex === currentSlide) return;
+  const animateSlideChange = useCallback(
+    (newSlideIndex: number) => {
+      if (isAnimating || newSlideIndex === currentSlide) return;
 
-    setIsAnimating(true);
+      setIsAnimating(true);
 
-    const currentEl = imageRefs.current[currentSlide];
-    const nextEl = imageRefs.current[newSlideIndex];
+      const currentEl = imageRefs.current[currentSlide];
+      const nextEl = imageRefs.current[newSlideIndex];
 
-    if (currentEl && nextEl) {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          setCurrentSlide(newSlideIndex);
-          setIsAnimating(false);
-        },
-      });
+      if (currentEl && nextEl) {
+        const tl = gsap.timeline({
+          onComplete: () => {
+            setCurrentSlide(newSlideIndex);
+            setIsAnimating(false);
+          },
+        });
 
-      tl.to(currentEl, { opacity: 0, duration: 1.0, ease: "sine.inOut" }, 0).to(
-        nextEl,
-        { opacity: 1, duration: 1.0, ease: "sine.inOut" },
-        0
-      );
-    } else {
-      setCurrentSlide(newSlideIndex);
-      setIsAnimating(false);
-    }
-  };
+        tl.to(
+          currentEl,
+          { opacity: 0, duration: 1.0, ease: "sine.inOut" },
+          0
+        ).to(nextEl, { opacity: 1, duration: 1.0, ease: "sine.inOut" }, 0);
+      } else {
+        setCurrentSlide(newSlideIndex);
+        setIsAnimating(false);
+      }
+    },
+    [currentSlide, isAnimating]
+  );
 
   // Auto slideshow
   useEffect(() => {
@@ -161,7 +170,7 @@ const Slideshow = () => {
       }
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentSlide, isAnimating]);
+  }, [currentSlide, isAnimating, animateSlideChange]);
 
   const handleButtonHover = (isHover: boolean) => {
     if (!buttonRef.current) return;
@@ -250,9 +259,7 @@ const Slideshow = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div
-        className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-30"
-      >
+      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-30">
         <div className="flex flex-col items-center text-white animate-bounce-slow">
           <span className="text-xs sm:text-sm font-medium mb-1 sm:mb-2 opacity-75 drop-shadow-md">
             Scroll
