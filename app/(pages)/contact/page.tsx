@@ -86,9 +86,9 @@ const ContactPage = () => {
       <Navbar />
       <Banner
         title="Επικοινωνία"
-        backgroundImage="/images/banners/zumwma2.jpg"
+        backgroundImage="/images/banners/tzenh.jpg"
         breadcrumbs="Επικοινωνία"
-        objectPosition="object-[center_-150%] lg:object-[center_0%] md:object-[center_0%]"
+        objectPosition="object-[center_0%] lg:object-[center_20%] md:object-[center_20%]"
       />
 
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-6 py-6 md:py-10">
