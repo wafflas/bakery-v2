@@ -12,9 +12,9 @@ import Link from "next/link";
 import { gsap } from "gsap";
 
 const slides = [
-  { src: "/images/slideshow/isxsnika.jpg", alt: "Ισχυρώ Νίκα" },
-  { src: "/images/slideshow/zumwma.jpg", alt: "Ζύμωμα" },
   { src: "/images/slideshow/pswmi1slide.jpg", alt: "Ψωμί" },
+  { src: "/images/slideshow/zumwma.jpg", alt: "Ζύμωμα" },
+  { src: "/images/slideshow/isxsnika.jpg", alt: "Ισχυρώ Νίκα" },
   { src: "/images/slideshow/kalathi.jpg", alt: "Καλάθι" },
 ];
 
@@ -42,7 +42,7 @@ const Slideshow = () => {
     const wordElements = words.map((word) => {
       const chars = Array.from(word).map((char) => {
         const span = document.createElement("span");
-        span.textContent = char;
+        span.textContent = char === " " ? "\u00A0" : char;
         span.style.display = "inline-block";
         span.style.opacity = "0";
         span.style.transform = "translateY(10px)";
@@ -59,7 +59,13 @@ const Slideshow = () => {
     });
 
     titleRef.current.innerHTML = "";
-    wordElements.forEach((el) => titleRef.current!.appendChild(el));
+    wordElements.forEach((el, i) => {
+      titleRef.current!.appendChild(el);
+      if (i < wordElements.length - 1) {
+        titleRef.current!.appendChild(document.createTextNode("\u00A0")); // NBSP
+      }
+    });
+    titleRef.current.style.whiteSpace = "pre-wrap";
   };
 
   // Ripple only once when title first shows
@@ -229,12 +235,13 @@ const Slideshow = () => {
           alt="Logo Κουγιουμουτζάκης"
           width={200}
           height={67}
-          className="pointer-events-none w-32 h-auto sm:w-48 md:w-56 lg:w-64 xl:w-72 drop-shadow-2xl"
+          priority={true}
+          className="pointer-events-none  h-auto w-60 md:w-60 lg:w-64 xl:w-72 drop-shadow-2xl"
         />
 
         <h1
           ref={titleRef}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center leading-tight"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center leading-tight"
           style={{ textShadow: "0 4px 8px rgba(0, 0, 0, 0.3)" }}
         >
           Φούρνος Κουγιουμουτζάκης

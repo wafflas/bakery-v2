@@ -183,7 +183,7 @@ const Introduction = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full px-5 sm:px-6 md:px-8 lg:px-10 py-24 md:py-28 lg:py-32"
+      className="relative w-full px-6 sm:px-6 md:px-8 lg:px-10 py-24 md:py-28 lg:py-32"
     >
       <div
         ref={cardRef}
@@ -274,7 +274,7 @@ const Introduction = () => {
               </div>
               <div className="intro-stat">
                 <p className="text-3xl md:text-4xl font-extrabold text-[#3d3b32]">
-                  <span className="intro-stat-num" data-target="1000">
+                  <span className="intro-stat-num" data-target="100">
                     1
                   </span>
                   <span>+</span>
@@ -295,7 +295,7 @@ const Introduction = () => {
               </a>
               <a
                 href="/stores"
-                className="inline-flex items-center justify-center rounded-2xl bg-white/80 px-6 py-3 text-[#3d3b32] font-semibold ring-1 ring-black/10 hover:bg-white transition-colors"
+                className="inline-flex items-center justify-center rounded-2xl bg-white/80 px-3 py-3 text-[#3d3b32] font-semibold ring-1 ring-black/10 hover:bg-white transition-colors"
               >
                 Που θα μας βρείτε
               </a>
@@ -320,7 +320,7 @@ const Introduction = () => {
 
             <div
               ref={photoInsetRef}
-              className="absolute left-0 bottom-0 w-[52%] aspect-square rounded-3xl overflow-hidden shadow-xl ring-4 ring-white/60"
+              className="absolute left-0 bottom-0 w-[52%] aspect-square rounded-3xl overflow-hidden shadow-xl "
             >
               <Image
                 src="/images/giagia.jpg"

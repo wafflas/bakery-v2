@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import { reviews } from "../data/reviews";
-import ReviewBox from "./ReviewBox";
+import { reviews } from "@/app/data/reviews";
+import ReviewBox from "../arxikh/ReviewBox";
 import Image from "next/image";
 
 const ReviewSection = () => {

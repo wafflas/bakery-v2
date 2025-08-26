@@ -23,7 +23,7 @@ const ScrollToTop = () => {
     >
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="w-12 h-12 bg-red-800 hover:bg-red-900 hover:scale-110 transition-all duration-200 rounded-full flex items-center justify-center shadow-lg"
+        className="w-12 h-12 bg-red-800 hover:bg-red-900 hover:scale-110 transition-all duration-200 cursor-pointer rounded-full flex items-center justify-center shadow-lg"
       >
         <svg
           className="w-6 h-6 text-white"

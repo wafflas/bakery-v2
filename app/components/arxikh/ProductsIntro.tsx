@@ -7,7 +7,7 @@ const ProductsIntro = () => {
     {
       title: "Το ψωμί μας",
       subtitle: "παραδοσιακή συνταγή 3 γενεών",
-      image: "/images/topswmi.jpg",
+      image: "/images/banners/topswmi.jpg",
       alt: "Ψωμί",
       href: "/products/bread",
     },

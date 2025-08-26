@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {Source_Sans_3, Fira_Sans } from "next/font/google";
+import { Fira_Sans } from "next/font/google";
+import RouteLoadingOverlay from "./components/RouteLoadingOverlay";
 
 export const metadata: Metadata = {
   title: "Φούρνος Κουγιουμουτζάκης",
   description: "Παραδοσιακός φούρνος απο το 1916",
 };
-const sourceSans3 = Source_Sans_3({
-  weight: ["500"],
-  subsets: ["latin"],
-});
+
 const firaSans = Fira_Sans({
   weight: ["500"],
   subsets: ["latin"],
@@ -21,9 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${firaSans.className} antialiased`}
-      >
+      <body className={`${firaSans.className} antialiased`}>
+        <RouteLoadingOverlay />
         {children}
       </body>
     </html>

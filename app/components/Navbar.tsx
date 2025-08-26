@@ -126,14 +126,14 @@ const Navbar = () => {
       <nav
         className={`fixed top-0 left-0 w-full p-3 z-50 rounded-t-lg ${
           !isNotHomePage && !isScrolled
-            ? "bg-transparent"
-            : "bg-white text-[#3d3b32] backdrop-blur-lg shadow-lg"
+            ? "bg-transparent text-white"
+            : "bg-white text-[#3d3b32] backdrop-blur-lg shadow-lg "
         } ${!isNotHomePage ? "transition-colors duration-500" : ""}`}
       >
         <div className="flex h-[60px] w-full sticky top-0 z-50 items-center p-4">
-          <div className="flex items-center justify-start gap-2 w-1/3">
+          <Link href="/" className="flex items-center justify-start gap-2 w-1/3">
             <Logo size={80} />
-          </div>
+          </Link>
 
           {/* Desktop Navigation Links - Hidden on mobile */}
           <div className="hidden lg:flex flex-row items-center gap-20 font-bold text-lg justify-center w-1/3">
