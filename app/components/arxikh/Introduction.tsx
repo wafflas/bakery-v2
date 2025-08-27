@@ -183,11 +183,11 @@ const Introduction = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full px-6 sm:px-6 md:px-8 lg:px-10 py-24 md:py-28 lg:py-32"
+      className="relative w-full px-6 sm:px-6 md:px-8 lg:px-10 py-14 md:py-14 lg:py-14 "
     >
       <div
         ref={cardRef}
-        className="relative mx-auto w-full max-w-[90rem] xl:max-w-[100rem] overflow-hidden rounded-[28px] md:rounded-[40px] shadow-[0_24px_70px_rgba(0,0,0,0.12)] ring-1 ring-black/5 bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] min-h-[72vh] md:min-h-[620px] lg:min-h-[760px]"
+        className="relative mx-auto w-full max-w-[100rem] xl:max-w-[110rem] overflow-hidden rounded-[28px] md:rounded-[40px] shadow-[0_24px_70px_rgba(0,0,0,0.12)] ring-1 ring-black/5 bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] min-h-[72vh] md:min-h-[620px] lg:min-h-[760px]"
       >
         {/* background pattern */}
         <div className="pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay [background-image:radial-gradient(rgba(255,255,255,0.55)_1px,transparent_1px)] [background-size:18px_18px]" />
@@ -214,16 +214,20 @@ const Introduction = () => {
             </p>
 
             <h2 className="intro-title mt-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#3d3b32]">
-              Ο Φούρνος <span className="text-red-800">Κουγιουμουτζάκης</span>
+              Αρτοποιία <span className="text-red-800">Κουγιουμουτζάκης</span>
             </h2>
 
             <p className="intro-sub mt-4 text-lg md:text-xl text-[#3d3b32]/90">
-              Παράδοση 4 γενεών — ψωμιά προζυμένια, γλυκά και καφές με μεράκι.
+              Η Αρτοποιία Κουγιουμουτζάκης είναι ένας παραδοσιακός Κρητικός
+              φούρνος στην <span className="font-extrabold">Ιεράπετρα</span> της Κρήτης απο το 1916. Συνεχίζουμε την
+              οικογενειακή παράδοση για 4η γενιά και δημιουργούμε καθημερινά για
+              εσάς χειροποίητα αρτοσκευάσματα συνδυάζοντας την παράδοση με
+              μοντέρνες ιδέες!
             </p>
 
             <div className="mt-6 space-y-3">
               <p className="intro-p text-[#3d3b32]/90 text-base md:text-lg leading-7 md:leading-8">
-                Χειροποίητα καθημερινά με πρώτες ύλες κορυφαίας ποιότητας και
+                Με πρώτες ύλες κορυφαίας ποιότητας και
                 συνταγές που εξελίσσονται διαρκώς, χωρίς να χάνουν την αυθεντική
                 τους γεύση.
               </p>

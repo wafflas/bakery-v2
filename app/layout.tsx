@@ -4,7 +4,7 @@ import { Fira_Sans } from "next/font/google";
 import RouteLoadingOverlay from "./components/RouteLoadingOverlay";
 
 export const metadata: Metadata = {
-  title: "Φούρνος Κουγιουμουτζάκης",
+  title: "Αρτοποιία Κουγιουμουτζάκης",
   description: "Παραδοσιακός φούρνος απο το 1916",
 };
 

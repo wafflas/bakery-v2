@@ -8,7 +8,7 @@ export default function NotFound() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="flex-1 pt-24 flex items-center justify-center bg-gradient-to-b from-red-50 to-white px-4">
+      <main className="flex-1 pt-37 p-40 flex items-center justify-center bg-gradient-to-b from-red-50 to-white px-4">
         <div className="max-w-md text-center space-y-8">
           {/* Bakery Logo */}
           <div className="flex justify-center">

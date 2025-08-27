@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "kougioumoutzakhs1916@hotmail.com",
+      to: "giwrgosgiannik@gmail.com",
       subject: `Νέο μήνυμα απο το website με θέμα: ${subject}`,
       html: `
         <h3>Σας έστειλαν μήνυμα απο το website με θέμα: ${subject}</h3>

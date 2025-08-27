@@ -244,7 +244,7 @@ const Slideshow = () => {
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center leading-tight"
           style={{ textShadow: "0 4px 8px rgba(0, 0, 0, 0.3)" }}
         >
-          Φούρνος Κουγιουμουτζάκης
+          Αρτοποιία Κουγιουμουτζάκης
         </h1>
 
         <p

@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import LandingPage from "./components/arxikh/LandingPage";
 import ScrollToTop from "./components/ScrollToTop";
