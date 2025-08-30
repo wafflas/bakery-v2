@@ -1,26 +1,272 @@
-import Navbar from '@/app/components/Navbar'
-import Footer from '@/app/components/Footer'
-import React from 'react'
-import { Flame, Heart, Users, Sparkles } from 'lucide-react'
-import Banner from '@/app/components/Banner'
+"use client";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import React, { useLayoutEffect, useRef } from "react";
+import { Flame, Heart, Users, Sparkles, MapPin, PhoneCall } from "lucide-react";
+import Banner from "@/app/components/Banner";
+import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollToTop from "@/app/components/ScrollToTop";
 
-const page = () => {
+const Page = () => {
+  // GSAP ScrollTrigger registration
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
+  // Animation refs
+  const heroRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const timelineItemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const missionRef = useRef<HTMLDivElement>(null);
+  const communityRef = useRef<HTMLDivElement>(null);
+  const valuesRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
-  const milestones = [
-{ year: "1916", title: "Ίδρυση", text: "Ο Νικόλαος Κουγιουμουτζάκης ανοίγει τον πρώτο φούρνο.", img: "/images/1916.webp" },
-{ year: "1954", title: "Δεύτερη γενιά", text: "Ο Ιάκωβος και ο Γιώργος συνεχίζουν και ο φούρνος γίνεται σημείο αναφοράς.", img: "/images/1954.webp" },
-{ year: "1984", title: "Παράδοση & ανάπτυξη", text: "Γιάννης, Γιώργος και Σπύρος αναλαμβάνουν με μεράκι.", img: "/images/1984.webp" },
-{ year: "Σήμερα", title: "4η γενιά", text: "Ιδέες και καινοτομίες στο εργαστήριο.", img: "/images/today.webp" },
-];
+  const storyContent = {
+    id: "story",
+    hero: {
+      title: "Ιστορία με άρωμα ψωμιού από το 1916",
+      subtitle:
+        "Τέσσερις γενιές αρτοποιών στην Ιεράπετρα — από τον Νικόλαο έως τον Ιάκωβο, τον Σπύρο και τον Νίκο.",
+      lead: "Η Αρτοποιία Κουγιουμουτζάκης ξεκινά το 1916. Από το πρώτο ζύμωμα μέχρι σήμερα, ο στόχος είναι ίδιος: αληθινές γεύσεις, μεράκι και σεβασμός στην παράδοση.",
+    },
+    timeline: [
+      {
+        year: "1916",
+        title: "Οι ρίζες",
+        text: "Ο Νικόλαος Κουγιουμουτζάκης, έμπορος λαδιού και πρώτων υλών, ιδρύει τον φούρνο και φέρνει στην Ιεράπετρα νέες τεχνικές και αρώματα.",
+        image: "/images/istoria1916.png",
+        alt: "Παλιά φωτογραφία από τα πρώτα χρόνια του φούρνου",
+      },
+      {
+        year: "1954",
+        title: "Η δεύτερη γενιά",
+        text: "Οι γιοι του, Ιάκωβος και Γιώργος, αναλαμβάνουν. Η γειτονιά αγκαλιάζει τον φούρνο, που γίνεται σημείο αναφοράς για την πόλη.",
+        image: "/images/istoria1954.png",
+        alt: "Φρέσκα ψωμιά στον πάγκο",
+      },
+      {
+        year: "1984",
+        title: "Μεγαλώνουμε με αγάπη",
+        text: "Η τρίτη γενιά — Γιάννης, Γιώργος και Σπύρος — συνεχίζουν την παράδοση, ενισχύοντας το εργαστήριο και τη γκάμα προϊόντων.",
+        image: "/images/giagia.jpg",
+        alt: "Το εργαστήριο του αρτοποιείου",
+      },
+      {
+        year: "Σήμερα",
+        title: "Η τέταρτη γενιά",
+        text: "Ο Ιάκωβος, ο Σπύρος και ο Νίκος φέρνουν νέες ιδέες, καινοτομίες και τη φιλοσοφία του «καλύτερα κάθε μέρα».",
+        image: "/images/mizes2.jpg",
+        alt: "Σύγχρονος χώρος με καφέ και σνακ",
+      },
+    ],
+    mission: {
+      title: "Αποστολή",
+      text: "Να προσφέρουμε αρτοσκευάσματα υψηλής ποιότητας, φτιαγμένα με αγάπη, φροντίδα και μεράκι. Θέλουμε να στηρίζουμε την τοπική κοινότητα και να καλλιεργούμε μια ζεστή κουλτούρα καφέ και φιλοξενίας.",
+      bullets: [
+        "Α' ύλες που εμπιστευόμαστε και γνωρίζουμε",
+        "Σταθερή ποιότητα, καθημερινό ζύμωμα",
+        "Σεβασμός στην παράδοση — ματιά στο αύριο",
+        "Ειλικρινείς σχέσεις με πελάτες και συνεργάτες",
+      ],
+    },
+    community: {
+      title: "Ο δεσμός μας με την Ιεράπετρα",
+      text: "Ο φούρνος είναι γειτονιά. Συνεργαζόμαστε με τοπικούς παραγωγούς, στηρίζουμε δράσεις σχολείων και συλλόγων και συμμετέχουμε σε γιορτές γεύσης.",
+      highlights: [
+        "Συνεργασίες με τοπικούς παραγωγούς ελαιολάδου, μελιού και αλευριού",
+        "Χορηγίες σε πολιτιστικές και αθλητικές εκδηλώσεις",
+        "Εκπαιδευτικές επισκέψεις — γνωριμία παιδιών με το ζύμωμα",
+        "Περιβαλλοντικές πρακτικές: μείωση σπατάλης, υπεύθυνες συσκευασίες",
+      ],
+    },
+    gallery: [
+      { src: "/images/pswmia/artosprozymenios.jpg", alt: "Προζυμένιο ψωμί" },
+      { src: "/images/sandwich2.jpg", alt: "Σάντουιτς ημέρας" },
+      { src: "/images/mizes2.jpg", alt: "Μικρές λιχουδιές για τον καφέ" },
+    ],
+    cta: {
+      label: "Δοκιμάστε τα σημερινά μας",
+      href: "/products",
+    },
+  };
 
+  const values = [
+    {
+      icon: Flame,
+      title: "Υψηλή ποιότητα",
+      text: "Καθαρές πρώτες ύλες, καθημερινή ζύμη.",
+    },
+    {
+      icon: Heart,
+      title: "Αγάπη & φροντίδα",
+      text: "Σεβασμός στην τέχνη του ψωμιού.",
+    },
+    {
+      icon: Users,
+      title: "Κοινότητα",
+      text: "Συνεργασία με τοπικούς παραγωγούς.",
+    },
+    { icon: Sparkles, title: "Καινοτομία", text: "Νέες τεχνικές με παράδοση." },
+  ];
 
-const values = [
-{ icon: Flame, title: "Υψηλή ποιότητα", text: "Καθαρές πρώτες ύλες, καθημερινή ζύμη." },
-{ icon: Heart, title: "Αγάπη & φροντίδα", text: "Σεβασμός στην τέχνη του ψωμιού." },
-{ icon: Users, title: "Κοινότητα", text: "Συνεργασία με τοπικούς παραγωγούς." },
-{ icon: Sparkles, title: "Καινοτομία", text: "Νέες τεχνικές με παράδοση." },
-];
+  // GSAP Scroll Reveal Animations
+  useLayoutEffect(() => {
+    if (!timelineRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Hero Section Animation
+      if (heroRef.current) {
+        gsap.fromTo(
+          heroRef.current,
+          { opacity: 0, y: 30, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: "top 90%",
+              end: "top 10%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Set initial state for timeline items
+      gsap.set(timelineItemsRef.current, {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+      });
+
+      // Animate timeline line
+      gsap.to("#timeline-line", {
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: timelineRef.current,
+          start: "top 80%",
+          end: "top 20%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Create timeline animation for each item
+      timelineItemsRef.current.forEach((item, index) => {
+        if (!item) return;
+
+        gsap.to(item, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+            end: "top 15%",
+            toggleActions: "play none none reverse",
+            markers: false,
+          },
+          delay: index * 0.2, // Stagger effect
+        });
+      });
+
+      // Mission Section Animation
+      if (missionRef.current) {
+        gsap.fromTo(
+          missionRef.current,
+          { opacity: 0, y: 50, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: missionRef.current,
+              start: "top 85%",
+              end: "top 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Community Section Animation
+      if (communityRef.current) {
+        gsap.fromTo(
+          communityRef.current,
+          { opacity: 0, y: 50, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: communityRef.current,
+              start: "top 85%",
+              end: "top 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Values Section Animation
+      if (valuesRef.current) {
+        gsap.fromTo(
+          valuesRef.current,
+          { opacity: 0, y: 50, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: valuesRef.current,
+              start: "top 85%",
+              end: "top 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // CTA Section Animation
+      if (ctaRef.current) {
+        gsap.fromTo(
+          ctaRef.current,
+          { opacity: 0, y: 50, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ctaRef.current,
+              start: "top 85%",
+              end: "top 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    }, timelineRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -30,82 +276,286 @@ const values = [
         breadcrumbs="Φούρνος"
         objectPosition="object-[center_0%] lg:object-[center_51%] md:object-[center_40%]"
       />
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <header className="mb-8">
-          <h2 className="text-3xl font-semibold tracking-tight">
-            Ιστορία & Αποστολή
-          </h2>
-          <p className="mt-2 text-lg text-gray-600">
-            Τέσσερις γενιές ζυμώνουμε με αγάπη και σεβασμό στην παράδοση της
-            Ιεράπετρας.
-          </p>
-        </header>
 
-        <div className="grid gap-10 md:grid-cols-2 md:gap-16">
-          {/* Timeline */}
-          <ol className="space-y-6">
-            {milestones.map((m) => (
-              <li key={m.year} className="relative pl-6">
-                <span
-                  className="absolute left-0 top-1 h-3 w-3 rounded-full bg-gray-800"
-                  aria-hidden
-                />
-                <time className="block text-sm font-medium text-gray-500">
-                  {m.year}
-                </time>
-                <h3 className="text-xl font-semibold">{m.title}</h3>
-                <p className="text-gray-700">{m.text}</p>
-              </li>
-            ))}
-          </ol>
+      {/* Hero Story Section */}
+      <section className="mx-auto max-w-6xl px-4 py-20" ref={heroRef}>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-red-100 to-red-200 rounded-full opacity-20 blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-red-50 to-red-100 rounded-full opacity-30 blur-3xl"></div>
+        </div>
 
-          {/* Feature image / team */}
-          <div className="aspect-video w-full overflow-hidden rounded-2xl bg-gray-100 shadow-sm">
-            {/* Replace with Next/Image */}
-            <img
-              src="/images/mizes2.jpg"
-              alt="Ζύμωμα στο εργαστήριο"
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
+        <div className="relative text-center mb-20">
+          <div className="flex justify-center mb-8">
+            <div className="w-20 h-20 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center shadow-2xl">
+              <svg
+                className="w-10 h-10 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+              </svg>
+            </div>
+          </div>
+
+          <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-800 to-red-900 mb-8 leading-tight">
+            {storyContent.hero.title}
+          </h1>
+
+          <div className="relative mb-8">
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-3 w-24 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded-full"></div>
+            <p className="text-2xl md:text-3xl font-bold text-gray-800 max-w-5xl mx-auto leading-relaxed">
+              {storyContent.hero.subtitle}
+            </p>
+            <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-3 w-24 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded-full"></div>
+          </div>
+
+          <div className="relative">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-10 shadow-2xl border border-red-100 max-w-4xl mx-auto">
+              <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
+                {storyContent.hero.lead}
+              </p>
+            </div>
+
+            <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-400 rounded-full opacity-60 animate-pulse"></div>
+            <div
+              className="absolute -bottom-4 -right-4 w-6 h-6 bg-red-500 rounded-full opacity-60 animate-pulse"
+              style={{ animationDelay: "1s" }}
+            ></div>
+            <div
+              className="absolute top-1/2 -right-8 w-4 h-4 bg-red-300 rounded-full opacity-60 animate-pulse"
+              style={{ animationDelay: "2s" }}
+            ></div>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="flex flex-col items-center mt-12">
+            <p className="text-gray-600 text-lg font-medium mb-4">
+              Διαβάστε την ιστορία μας
+            </p>
+            <div className="w-6 h-10 border-2 border-red-400 rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-red-400 rounded-full mt-2 animate-bounce"></div>
+            </div>
+          </div>
+
+          {/* Trust indicators */}
+          <div className="flex flex-row justify-center items-center lg:gap-8 gap-4 mt-16 text-gray-600">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className="text-xs font-medium">100+ χρόνια εμπειρίας</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className="text-xs font-medium">Φρέσκα καθημερινά</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className="text-xs font-medium">Τοπικά υλικά</span>
+            </div>
           </div>
         </div>
 
-        {/* Values */}
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="rounded-2xl border p-5 shadow-sm">
-              <Icon className="h-6 w-6" aria-hidden />
-              <h4 className="mt-3 text-lg font-semibold">{title}</h4>
-              <p className="text-gray-700">{text}</p>
+        {/* Timeline Section */}
+        <div className="mb-20" ref={timelineRef}>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+            Η Ιστορία μας
+          </h2>
+          <div className="relative">
+            {/* Timeline line - hidden on mobile, visible on desktop */}
+            <div
+              className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-red-400 to-red-800 hidden lg:block opacity-0"
+              id="timeline-line"
+            ></div>
+
+            <div className="space-y-8 lg:space-y-12">
+              {storyContent.timeline.map((item, index) => (
+                <div
+                  key={item.year}
+                  ref={(el) => {
+                    timelineItemsRef.current[index] = el;
+                  }}
+                  className="relative flex flex-col lg:items-center"
+                >
+                  {/* Timeline dot - mobile version */}
+                  <div className="absolute left-4 top-6 w-3 h-3 bg-red-600 rounded-full border-2 border-white shadow-md z-10 lg:hidden"></div>
+
+                  {/* Timeline dot - desktop version */}
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-600 rounded-full border-4 border-white shadow-lg z-10 hidden lg:block"></div>
+
+                  {/* Mobile layout: stacked vertically */}
+                  <div className="lg:hidden pl-12">
+                    <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 mb-4">
+                      <div className="text-red-700 font-bold text-lg mb-2">
+                        {item.year}
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-700 leading-relaxed text-sm">
+                        {item.text}
+                      </p>
+                    </div>
+                    <div className="relative overflow-hidden rounded-2xl shadow-lg">
+                      <Image
+                        src={item.image}
+                        alt={item.alt}
+                        width={500}
+                        height={300}
+                        className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Desktop layout: alternating left/right */}
+                  <div
+                    className={`hidden lg:flex items-center w-full ${
+                      index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                    }`}
+                  >
+                    {/* Content */}
+                    <div
+                      className={`w-1/2 ${index % 2 === 0 ? "pr-12" : "pl-12"}`}
+                    >
+                      <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                        <div className="text-red-700 font-bold text-lg mb-2">
+                          {item.year}
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                          {item.title}
+                        </h3>
+                        <p className="text-gray-700 leading-relaxed">
+                          {item.text}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Image */}
+                    <div
+                      className={`w-1/2 ${index % 2 === 0 ? "pl-12" : "pr-12"}`}
+                    >
+                      <div className="relative overflow-hidden rounded-2xl shadow-lg">
+                        <Image
+                          src={item.image}
+                          alt={item.alt}
+                          width={500}
+                          height={300}
+                          className="w-full h-64 object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* CTA bar */}
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-amber-50 p-6">
-          <p className="text-gray-800">
-            Ψωμί ζεστό όλη μέρα — περάστε από το φούρνο μας.
+        {/* Mission Section */}
+        <div className="mb-20" ref={missionRef}>
+          <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-8 md:p-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+              {storyContent.mission.title}
+            </h2>
+            <p className="text-lg text-gray-700 text-center mb-8 max-w-4xl mx-auto leading-relaxed">
+              {storyContent.mission.text}
+            </p>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {storyContent.mission.bullets.map((bullet, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-700">{bullet}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Community Section */}
+        <div
+          className="mb-20 bg-gradient-to-br from-[#9b8862] via-[#fee2b1] to-[#f9dba5] rounded-xl p-6 shadow-md border border-gray-100"
+          ref={communityRef}
+        >
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            {storyContent.community.title}
+          </h2>
+          <p className="text-lg text-gray-700 text-center mb-10 max-w-4xl mx-auto leading-relaxed">
+            {storyContent.community.text}
           </p>
-          <div className="flex gap-2">
-            <a href="#hours" className="rounded-xl border px-4 py-2">
-              Ώρες & Χάρτης
-            </a>
-            <a href="tel:+30xxxxxxxxxx" className="rounded-xl border px-4 py-2">
-              Τηλέφωνο
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {storyContent.community.highlights.map((highlight, index) => (
+              <div
+                key={index}
+                className="bg-gray-100 rounded-xl p-6 shadow-md border border-gray-100"
+              >
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-700">{highlight}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Values Section */}
+        <div className="mb-20" ref={valuesRef}>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+            Οι αξίες μας
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {values.map(({ icon: Icon, title, text }) => (
+              <div
+                key={title}
+                className="bg-white rounded-2xl border border-gray-200 p-6 shadow-md text-center hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon className="h-8 w-8 text-red-700" aria-hidden />
+                </div>
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                  {title}
+                </h4>
+                <p className="text-gray-700 text-sm">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Enhanced CTA Section */}
+        <div
+          className="bg-gradient-to-r from-red-600 to-red-800 rounded-3xl p-8 md:p-12 text-white text-center"
+          ref={ctaRef}
+        >
+          <h2 className="text-3xl font-bold mb-4">Έρχεστε να δοκιμάσετε;</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Φρέσκο ψωμί, ζεστός καφές και φιλόξενη ατμόσφαιρα σας περιμένουν
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="/stores"
+              className="inline-flex items-center gap-2 bg-white text-red-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+            >
+              <MapPin className="h-5 w-5" />
+              Βρείτε μας
             </a>
             <a
-              href="#order"
-              className="rounded-xl bg-gray-900 px-4 py-2 text-white"
+              href="tel:2842022463"
+              className="inline-flex items-center gap-2 bg-white text-red-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
             >
-              Παραγγελία
+              <PhoneCall className="h-5 w-5" />
+              Καλέστε μας
+            </a>
+            <a
+              href="/products"
+              className="inline-flex items-center gap-2 bg-red-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-800 transition-colors"
+            >
+              Δείτε προϊόντα
             </a>
           </div>
         </div>
       </section>
+
       <Footer />
+      <ScrollToTop />
     </div>
   );
-}
+};
 
-export default page
+export default Page;

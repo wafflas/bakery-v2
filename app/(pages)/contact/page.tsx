@@ -1,11 +1,17 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Logo from "@/app/components/Logo";
 import { MapPin, Navigation2, PhoneCall, Send } from "lucide-react";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import Banner from "@/app/components/Banner";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollToTop from "@/app/components/ScrollToTop";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const ContactPage = () => {
   const locations = [
@@ -81,6 +87,81 @@ const ContactPage = () => {
     }
   };
 
+  // Animation refs
+  const mapsRef = useRef<HTMLDivElement>(null);
+  const contactFormRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+
+  // GSAP animations
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Maps Section Animation
+      if (mapsRef.current) {
+        gsap.fromTo(
+          mapsRef.current,
+          { opacity: 0, y: 50, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: mapsRef.current,
+              start: "top 85%",
+              end: "top 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Form Section Animation
+      if (contactFormRef.current) {
+        gsap.fromTo(
+          contactFormRef.current,
+          { opacity: 0, y: 50, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: contactFormRef.current,
+              start: "top 85%",
+              end: "top 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Logo Animation
+      if (logoRef.current) {
+        gsap.fromTo(
+          logoRef.current,
+          { opacity: 0, scale: 0.8, rotation: -5 },
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: logoRef.current,
+              start: "top 90%",
+              end: "top 10%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -94,7 +175,10 @@ const ContactPage = () => {
       <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-6 py-6 md:py-10">
         <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
           {/* Left side: maps */}
-          <section className="rounded-3xl bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] p-5 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-black/5">
+          <section
+            ref={mapsRef}
+            className="rounded-3xl bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] p-5 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-black/5"
+          >
             <header className="mb-4 md:mb-6">
               <h2 className="text-[#3d3b32] text-xl md:text-2xl font-extrabold">
                 Βρείτε μας στον χάρτη
@@ -174,7 +258,10 @@ const ContactPage = () => {
           </section>
 
           {/* Right: contact form */}
-          <section className="rounded-3xl bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] p-5 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-black/5">
+          <section
+            ref={contactFormRef}
+            className="rounded-3xl bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] p-5 md:p-6 lg:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-1 ring-black/5"
+          >
             <header className="mb-4 md:mb-6">
               <h2 className="text-[#3d3b32] text-xl md:text-2xl font-extrabold">
                 Φόρμα Επικοινωνίας
@@ -261,13 +348,17 @@ const ContactPage = () => {
               </div>
             )}
 
-            <div className="flex justify-center items-center mt-10">
+            <div
+              className="flex justify-center items-center mt-10"
+              ref={logoRef}
+            >
               <Logo className="pointer-events-none" size={250} />
             </div>
           </section>
         </div>
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 };

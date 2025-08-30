@@ -12,9 +12,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Column 1: About */}
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Φούρνος Κουγιουμουτζάκης</h2>
+            <h2 className="text-2xl font-bold">Αρτοποιία Κουγιουμουτζάκης</h2>
             <p className="text-sm text-[#545144] leading-relaxed">
-              Ο Φούρνος Κουγιουμουτζάκη είναι μια οικογενειακή επιχείρηση στην
+              Η Αρτοποιία Κουγιουμουτζάκης είναι μια οικογενειακή επιχείρηση στην
               Ιεράπετρα της Κρήτης, που προσφέρει ποιοτικές υπηρεσίες στην
               αρτοποιία και ζαχαροπλαστική
               <br /> από το 1916.

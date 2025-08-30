@@ -1,12 +1,78 @@
-import React from "react";
+"use client";
+import React, { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const ProductsIntro = () => {
+  // Animation refs
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const cardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  // GSAP animations
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Title Animation
+      if (titleRef.current) {
+        gsap.fromTo(
+          titleRef.current,
+          { opacity: 0, y: 30, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: titleRef.current,
+              start: "top 85%",
+              end: "top 15%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // Cards Animation - Left to Right sequence
+      if (cardsRef.current.length > 0) {
+        gsap.fromTo(
+          cardsRef.current,
+          {
+            opacity: 0,
+            x: -100,
+            scale: 0.9,
+            rotationY: -15,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            rotationY: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.2, // 0.2 second delay between each card
+            scrollTrigger: {
+              trigger: cardsRef.current[0],
+              start: "top 80%",
+              end: "top 20%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   const products = [
     {
       title: "Το ψωμί μας",
-      subtitle: "παραδοσιακή συνταγή 3 γενεών",
+      subtitle: "παραδοσιακή συνταγή 4 γενεών",
       image: "/images/banners/topswmi.jpg",
       alt: "Ψωμί",
       href: "/products/bread",
@@ -20,7 +86,7 @@ const ProductsIntro = () => {
     },
     {
       title: "Καφές & Αρτοσκευάσματα",
-      subtitle: "άριστος καφές",
+      subtitle: "άρτιος καφές",
       image: "/images/kafes1.jpg",
       alt: "Καφές",
       href: "/products/coffee",
@@ -30,7 +96,10 @@ const ProductsIntro = () => {
   return (
     <div className="w-full py-16 px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-5xl text-black font-bold mb-12 text-center">
+        <h1
+          ref={titleRef}
+          className="text-4xl md:text-5xl text-black font-bold mb-12 text-center"
+        >
           Γιατί <span className="text-red-800">εμάς;</span>
         </h1>
 
@@ -39,6 +108,9 @@ const ProductsIntro = () => {
             <Link
               key={index}
               href={product.href}
+              ref={(el) => {
+                cardsRef.current[index] = el;
+              }}
               className="group relative overflow-hidden rounded-2xl aspect-square hover:scale-105 transition-transform duration-300"
             >
               <Image
