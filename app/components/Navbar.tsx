@@ -124,14 +124,20 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full p-3 z-50 rounded-t-lg ${
+        className={`fixed top-0 left-0 w-full p-3 z-70 rounded-t-lg ${
           !isNotHomePage && !isScrolled
             ? "bg-transparent text-white"
             : "bg-white text-[#3d3b32] backdrop-blur-lg shadow-lg "
         } ${!isNotHomePage ? "transition-colors duration-500" : ""}`}
+        role="navigation"
+        aria-label="Κύρια πλοήγηση"
       >
-        <div className="flex h-[60px] w-full sticky top-0 z-50 items-center p-4">
-          <Link href="/" className="flex items-center justify-start gap-2 w-1/3">
+        <div className="flex h-[60px] w-full sticky top-0 z-70 items-center p-4">
+          <Link
+            href="/"
+            className="flex items-center justify-start gap-2 w-1/3"
+            aria-label="Αρχική σελίδα - Αρτοποιία Κουγιουμουτζάκης"
+          >
             <Logo size={80} />
           </Link>
 
@@ -189,7 +195,7 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div
           ref={overlayRef}
-          className="fixed inset-0  bg-opacity-20 z-40 lg:hidden"
+          className="fixed inset-0  bg-opacity-20 z-70 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
@@ -197,7 +203,7 @@ const Navbar = () => {
       {/* Mobile Menu Slide Panel */}
       <div
         ref={mobileMenuRef}
-        className="fixed top-0 right-0 h-full w-1/2 max-w-sm bg-white shadow-2xl z-50 lg:hidden"
+        className="fixed top-0 right-0 h-full w-1/2 max-w-sm bg-white shadow-2xl z-70 lg:hidden"
         style={{ display: "none" }}
       >
         {/* Menu Header */}

@@ -16,13 +16,13 @@ const Page = () => {
   }
 
   // Animation refs
-  const heroRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const timelineItemsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const missionRef = useRef<HTMLDivElement>(null);
-  const communityRef = useRef<HTMLDivElement>(null);
-  const valuesRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const timelineRef = useRef<HTMLElement>(null);
+  const timelineItemsRef = useRef<(HTMLElement | null)[]>([]);
+  const missionRef = useRef<HTMLElement>(null);
+  const communityRef = useRef<HTMLElement>(null);
+  const valuesRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLElement>(null);
 
   const storyContent = {
     id: "story",
@@ -57,7 +57,7 @@ const Page = () => {
       {
         year: "Σήμερα",
         title: "Η τέταρτη γενιά",
-        text: "Ο Ιάκωβος, ο Σπύρος και ο Νίκος φέρνουν νέες ιδέες, καινοτομίες και τη φιλοσοφία του «καλύτερα κάθε μέρα».",
+        text: "Ο Ιάκωβος και ο Νίκος φέρνουν νέες ιδέες, καινοτομίες και τη φιλοσοφία του «καλύτερα κάθε μέρα».",
         image: "/images/mizes2.jpg",
         alt: "Σύγχρονος χώρος με καφέ και σνακ",
       },
@@ -278,279 +278,321 @@ const Page = () => {
       />
 
       {/* Hero Story Section */}
-      <section className="mx-auto max-w-6xl px-4 py-20" ref={heroRef}>
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-red-100 to-red-200 rounded-full opacity-20 blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-red-50 to-red-100 rounded-full opacity-30 blur-3xl"></div>
-        </div>
+      <main id="main-content" className="mx-auto max-w-6xl px-4 py-20">
+        <section className="relative text-center mb-20" ref={heroRef}>
+          <div
+            className="absolute inset-0 overflow-hidden pointer-events-none"
+            aria-hidden="true"
+          >
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-red-100 to-red-200 rounded-full opacity-20 blur-3xl"></div>
+            <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-red-50 to-red-100 rounded-full opacity-30 blur-3xl"></div>
+          </div>
 
-        <div className="relative text-center mb-20">
-          <div className="flex justify-center mb-8">
-            <div className="w-20 h-20 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center shadow-2xl">
-              <svg
-                className="w-10 h-10 text-white"
-                fill="currentColor"
-                viewBox="0 0 24 24"
+          <div className="relative">
+            <div className="flex justify-center mb-8">
+              <div
+                className="w-20 h-20 bg-gradient-to-br from-red-600 to-red-800 rounded-full flex items-center justify-center shadow-2xl"
+                aria-hidden="true"
               >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
-            </div>
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-800 to-red-900 mb-8 leading-tight">
-            {storyContent.hero.title}
-          </h1>
-
-          <div className="relative mb-8">
-            <div className="absolute left-1/2 transform -translate-x-1/2 -top-3 w-24 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded-full"></div>
-            <p className="text-2xl md:text-3xl font-bold text-gray-800 max-w-5xl mx-auto leading-relaxed">
-              {storyContent.hero.subtitle}
-            </p>
-            <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-3 w-24 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded-full"></div>
-          </div>
-
-          <div className="relative">
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-10 shadow-2xl border border-red-100 max-w-4xl mx-auto">
-              <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
-                {storyContent.hero.lead}
-              </p>
-            </div>
-
-            <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-400 rounded-full opacity-60 animate-pulse"></div>
-            <div
-              className="absolute -bottom-4 -right-4 w-6 h-6 bg-red-500 rounded-full opacity-60 animate-pulse"
-              style={{ animationDelay: "1s" }}
-            ></div>
-            <div
-              className="absolute top-1/2 -right-8 w-4 h-4 bg-red-300 rounded-full opacity-60 animate-pulse"
-              style={{ animationDelay: "2s" }}
-            ></div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="flex flex-col items-center mt-12">
-            <p className="text-gray-600 text-lg font-medium mb-4">
-              Διαβάστε την ιστορία μας
-            </p>
-            <div className="w-6 h-10 border-2 border-red-400 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-red-400 rounded-full mt-2 animate-bounce"></div>
-            </div>
-          </div>
-
-          {/* Trust indicators */}
-          <div className="flex flex-row justify-center items-center lg:gap-8 gap-4 mt-16 text-gray-600">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs font-medium">100+ χρόνια εμπειρίας</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs font-medium">Φρέσκα καθημερινά</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs font-medium">Τοπικά υλικά</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Timeline Section */}
-        <div className="mb-20" ref={timelineRef}>
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Η Ιστορία μας
-          </h2>
-          <div className="relative">
-            {/* Timeline line - hidden on mobile, visible on desktop */}
-            <div
-              className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-red-400 to-red-800 hidden lg:block opacity-0"
-              id="timeline-line"
-            ></div>
-
-            <div className="space-y-8 lg:space-y-12">
-              {storyContent.timeline.map((item, index) => (
-                <div
-                  key={item.year}
-                  ref={(el) => {
-                    timelineItemsRef.current[index] = el;
-                  }}
-                  className="relative flex flex-col lg:items-center"
+                <svg
+                  className="w-10 h-10 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
-                  {/* Timeline dot - mobile version */}
-                  <div className="absolute left-4 top-6 w-3 h-3 bg-red-600 rounded-full border-2 border-white shadow-md z-10 lg:hidden"></div>
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+              </div>
+            </div>
 
-                  {/* Timeline dot - desktop version */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-600 rounded-full border-4 border-white shadow-lg z-10 hidden lg:block"></div>
+            <h1 className="text-3xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-800 to-red-900 mb-8 leading-tight">
+              {storyContent.hero.title}
+            </h1>
 
-                  {/* Mobile layout: stacked vertically */}
-                  <div className="lg:hidden pl-12">
-                    <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 mb-4">
-                      <div className="text-red-700 font-bold text-lg mb-2">
-                        {item.year}
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-3">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-700 leading-relaxed text-sm">
-                        {item.text}
-                      </p>
-                    </div>
-                    <div className="relative overflow-hidden rounded-2xl shadow-lg">
-                      <Image
-                        src={item.image}
-                        alt={item.alt}
-                        width={500}
-                        height={300}
-                        className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                    </div>
-                  </div>
+            <div className="relative mb-8">
+              <div
+                className="absolute left-1/2 transform -translate-x-1/2 -top-3 w-24 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded-full"
+                aria-hidden="true"
+              ></div>
+              <p className="text-xl md:text-3xl font-bold text-gray-800 max-w-5xl mx-auto leading-relaxed">
+                {storyContent.hero.subtitle}
+              </p>
+              <div
+                className="absolute left-1/2 transform -translate-x-1/2 -bottom-3 w-24 h-1 bg-gradient-to-r from-red-400 to-red-600 rounded-full"
+                aria-hidden="true"
+              ></div>
+            </div>
 
-                  {/* Desktop layout: alternating left/right */}
-                  <div
-                    className={`hidden lg:flex items-center w-full ${
-                      index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-                    }`}
+            <div className="relative">
+              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-10 shadow-2xl border border-red-100 max-w-4xl mx-auto">
+                <p className="text-md md:text-xl text-gray-700 leading-relaxed font-medium">
+                  {storyContent.hero.lead}
+                </p>
+              </div>
+
+              <div
+                className="absolute -top-4 -left-4 w-8 h-8 bg-red-400 rounded-full opacity-60 animate-pulse"
+                aria-hidden="true"
+              ></div>
+              <div
+                className="absolute -bottom-4 -right-4 w-6 h-6 bg-red-500 rounded-full opacity-60 animate-pulse"
+                style={{ animationDelay: "1s" }}
+                aria-hidden="true"
+              ></div>
+              <div
+                className="absolute top-1/2 -right-8 w-4 h-4 bg-red-300 rounded-full opacity-60 animate-pulse"
+                style={{ animationDelay: "2s" }}
+                aria-hidden="true"
+              ></div>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="flex flex-col items-center mt-12">
+              <p className="text-gray-600 text-lg font-medium mb-4">
+                Διαβάστε την ιστορία μας
+              </p>
+              <div
+                className="w-6 h-10 border-2 border-red-400 rounded-full flex justify-center"
+                aria-hidden="true"
+              >
+                <div className="w-1 h-3 bg-red-400 rounded-full mt-2 animate-bounce"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Timeline Section */}
+          <section className="mb-20 mt-20" ref={timelineRef}>
+            <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+              Η Ιστορία μας
+            </h2>
+            <div className="relative">
+              {/* Timeline line - hidden on mobile, visible on desktop */}
+              <div
+                className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-red-400 to-red-800 hidden lg:block opacity-0"
+                id="timeline-line"
+                aria-hidden="true"
+              ></div>
+
+              <div className="space-y-8 lg:space-y-12">
+                {storyContent.timeline.map((item, index) => (
+                  <article
+                    key={item.year}
+                    ref={(el) => {
+                      timelineItemsRef.current[index] = el;
+                    }}
+                    className="relative flex flex-col lg:items-center"
                   >
-                    {/* Content */}
+                    {/* Timeline dot - mobile version */}
                     <div
-                      className={`w-1/2 ${index % 2 === 0 ? "pr-12" : "pl-12"}`}
-                    >
-                      <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                        <div className="text-red-700 font-bold text-lg mb-2">
+                      className="absolute left-4 top-6 w-3 h-3 bg-red-600 rounded-full border-2 border-white shadow-md z-10 lg:hidden"
+                      aria-hidden="true"
+                    ></div>
+
+                    {/* Timeline dot - desktop version */}
+                    <div
+                      className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-600 rounded-full border-4 border-white shadow-lg z-10 hidden lg:block"
+                      aria-hidden="true"
+                    ></div>
+
+                    {/* Mobile layout: stacked vertically */}
+                    <div className="lg:hidden pl-12">
+                      <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 mb-4">
+                        <time
+                          className="text-red-700 font-bold text-lg mb-2"
+                          dateTime={item.year === "Σήμερα" ? "2025" : item.year}
+                        >
                           {item.year}
-                        </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                        </time>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">
                           {item.title}
                         </h3>
-                        <p className="text-gray-700 leading-relaxed">
+                        <p className="text-gray-700 leading-relaxed text-sm">
                           {item.text}
                         </p>
                       </div>
-                    </div>
-
-                    {/* Image */}
-                    <div
-                      className={`w-1/2 ${index % 2 === 0 ? "pl-12" : "pr-12"}`}
-                    >
                       <div className="relative overflow-hidden rounded-2xl shadow-lg">
                         <Image
                           src={item.image}
                           alt={item.alt}
                           width={500}
                           height={300}
-                          className="w-full h-64 object-cover transition-transform duration-500 hover:scale-105"
+                          className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
                         />
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
 
-        {/* Mission Section */}
-        <div className="mb-20" ref={missionRef}>
-          <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-8 md:p-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-              {storyContent.mission.title}
+                    {/* Desktop layout: alternating left/right */}
+                    <div
+                      className={`hidden lg:flex items-center w-full ${
+                        index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+                      }`}
+                    >
+                      {/* Content */}
+                      <div
+                        className={`w-1/2 ${
+                          index % 2 === 0 ? "pr-12" : "pl-12"
+                        }`}
+                      >
+                        <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                          <time
+                            className="text-red-700 font-bold text-lg mb-2"
+                            dateTime={
+                              item.year === "Σήμερα" ? "2025" : item.year
+                            }
+                          >
+                            {item.year}
+                          </time>
+                          <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-700 leading-relaxed">
+                            {item.text}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Image */}
+                      <div
+                        className={`w-1/2 ${
+                          index % 2 === 0 ? "pl-12" : "pr-12"
+                        }`}
+                      >
+                        <div className="relative overflow-hidden rounded-2xl shadow-lg">
+                          <Image
+                            src={item.image}
+                            alt={item.alt}
+                            width={500}
+                            height={300}
+                            className="w-full h-64 object-cover transition-transform duration-500 hover:scale-105"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Mission Section */}
+          <section className="mb-20" ref={missionRef}>
+            <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-8 md:p-12">
+              <h2 className="text-3xl  font-bold text-gray-900 mb-6 text-center">
+                {storyContent.mission.title}
+              </h2>
+              <p className="text-md md:text-lg text-gray-700 text-center mb-8 max-w-4xl mx-auto leading-relaxed">
+                {storyContent.mission.text}
+              </p>
+              <ul
+                className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+                role="list"
+              >
+                {storyContent.mission.bullets.map((bullet, index) => (
+                  <li key={index} className="flex items-start space-x-2">
+                    <div
+                      className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"
+                      aria-hidden="true"
+                    ></div>
+                    <p className="text-gray-700">{bullet}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Community Section */}
+          <section
+            className="mb-20 bg-gradient-to-br from-[#9b8862] via-[#fee2b1] to-[#f9dba5] rounded-xl p-6 shadow-md border border-gray-100"
+            ref={communityRef}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+              {storyContent.community.title}
             </h2>
-            <p className="text-lg text-gray-700 text-center mb-8 max-w-4xl mx-auto leading-relaxed">
-              {storyContent.mission.text}
+            <p className="text-lg text-gray-700 text-center mb-10 max-w-4xl mx-auto leading-relaxed">
+              {storyContent.community.text}
             </p>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {storyContent.mission.bullets.map((bullet, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">{bullet}</p>
-                </div>
+            <ul
+              className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+              role="list"
+            >
+              {storyContent.community.highlights.map((highlight, index) => (
+                <li
+                  key={index}
+                  className="bg-gray-100 rounded-xl p-6 shadow-md border border-gray-100"
+                >
+                  <div className="flex items-start space-x-3">
+                    <div
+                      className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"
+                      aria-hidden="true"
+                    ></div>
+                    <p className="text-gray-700">{highlight}</p>
+                  </div>
+                </li>
               ))}
+            </ul>
+          </section>
+
+          {/* Values Section */}
+          <section className="mb-20" ref={valuesRef}>
+            <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
+              Οι αξίες μας
+            </h2>
+            <ul
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+              role="list"
+            >
+              {values.map(({ icon: Icon, title, text }) => (
+                <li
+                  key={title}
+                  className="bg-white rounded-2xl border border-gray-200 p-6 shadow-md text-center hover:shadow-lg transition-shadow duration-300"
+                >
+                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-8 w-8 text-red-700" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {title}
+                  </h3>
+                  <p className="text-gray-700 text-sm">{text}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Enhanced CTA Section */}
+          <section
+            className="bg-gradient-to-r bg-red-800 rounded-3xl p-8 md:p-12 text-white text-center"
+            ref={ctaRef}
+          >
+            <h2 className="text-3xl font-bold mb-4">Έρχεστε να δοκιμάσετε;</h2>
+            <p className="text-xl mb-8 opacity-90">
+              Φρέσκο ψωμί, ζεστός καφές και φιλόξενη ατμόσφαιρα σας περιμένουν
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href="/stores"
+                className="inline-flex items-center gap-2 bg-white text-red-700  px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-800 focus:rounded-xl"
+              >
+                <MapPin className="h-5 w-5" aria-hidden="true" />
+                Βρείτε μας
+              </a>
+              <a
+                href="tel:2842022463"
+                className="inline-flex items-center gap-2 bg-white text-red-700 px-5 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-800 focus:rounded-xl"
+                aria-label="Κλήση στο αρτοποιείο"
+              >
+                <PhoneCall className="h-5 w-5" aria-hidden="true" />
+                Καλέστε μας
+              </a>
+              <a
+                href="/products"
+                className="inline-flex items-center gap-2 bg-white text-red-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 focus:ring-offset-red-800 focus:rounded-xl"
+              >
+                Δείτε προϊόντα
+              </a>
             </div>
-          </div>
-        </div>
-
-        {/* Community Section */}
-        <div
-          className="mb-20 bg-gradient-to-br from-[#9b8862] via-[#fee2b1] to-[#f9dba5] rounded-xl p-6 shadow-md border border-gray-100"
-          ref={communityRef}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            {storyContent.community.title}
-          </h2>
-          <p className="text-lg text-gray-700 text-center mb-10 max-w-4xl mx-auto leading-relaxed">
-            {storyContent.community.text}
-          </p>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {storyContent.community.highlights.map((highlight, index) => (
-              <div
-                key={index}
-                className="bg-gray-100 rounded-xl p-6 shadow-md border border-gray-100"
-              >
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-red-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">{highlight}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Values Section */}
-        <div className="mb-20" ref={valuesRef}>
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Οι αξίες μας
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map(({ icon: Icon, title, text }) => (
-              <div
-                key={title}
-                className="bg-white rounded-2xl border border-gray-200 p-6 shadow-md text-center hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon className="h-8 w-8 text-red-700" aria-hidden />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                  {title}
-                </h4>
-                <p className="text-gray-700 text-sm">{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Enhanced CTA Section */}
-        <div
-          className="bg-gradient-to-r from-red-600 to-red-800 rounded-3xl p-8 md:p-12 text-white text-center"
-          ref={ctaRef}
-        >
-          <h2 className="text-3xl font-bold mb-4">Έρχεστε να δοκιμάσετε;</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Φρέσκο ψωμί, ζεστός καφές και φιλόξενη ατμόσφαιρα σας περιμένουν
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="/stores"
-              className="inline-flex items-center gap-2 bg-white text-red-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
-            >
-              <MapPin className="h-5 w-5" />
-              Βρείτε μας
-            </a>
-            <a
-              href="tel:2842022463"
-              className="inline-flex items-center gap-2 bg-white text-red-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
-            >
-              <PhoneCall className="h-5 w-5" />
-              Καλέστε μας
-            </a>
-            <a
-              href="/products"
-              className="inline-flex items-center gap-2 bg-red-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-800 transition-colors"
-            >
-              Δείτε προϊόντα
-            </a>
-          </div>
-        </div>
-      </section>
+          </section>
+        </section>
+      </main>
 
       <Footer />
       <ScrollToTop />

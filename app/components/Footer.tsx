@@ -6,7 +6,11 @@ import { links, socialLinks } from "../data/links";
 
 const Footer = () => {
   return (
-    <div className="bg-[#ddccaa] rounded-b-lg text-black">
+    <footer
+      className="bg-[#ddccaa] rounded-b-lg text-black"
+      role="contentinfo"
+      aria-label="Πληροφορίες ιστότοπου"
+    >
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -14,48 +18,70 @@ const Footer = () => {
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Αρτοποιία Κουγιουμουτζάκης</h2>
             <p className="text-sm text-[#545144] leading-relaxed">
-              Η Αρτοποιία Κουγιουμουτζάκης είναι μια οικογενειακή επιχείρηση στην
-              Ιεράπετρα της Κρήτης, που προσφέρει ποιοτικές υπηρεσίες στην
+              Η Αρτοποιία Κουγιουμουτζάκης είναι μια οικογενειακή επιχείρηση
+              στην Ιεράπετρα της Κρήτης, που προσφέρει ποιοτικές υπηρεσίες στην
               αρτοποιία και ζαχαροπλαστική
               <br /> από το 1916.
             </p>
           </div>
+
           {/* Column 2: Navigation */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold text-black">Περιήγηση</h3>
-            <ul className="space-y-2">
+          <nav className="space-y-4" aria-labelledby="footer-navigation">
+            <h3 id="footer-navigation" className="text-lg font-bold text-black">
+              Περιήγηση
+            </h3>
+            <ul className="space-y-2" role="list">
               {links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[#545144] hover:text-red-800 transition-colors duration-200"
+                    className="text-sm text-[#545144] hover:text-red-800 transition-colors duration-200 focus:outline-none focus:ring-offset-2 focus:ring-offset-[#ddccaa] focus:rounded px-1 py-0.5"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
+
           {/* Column 3: Store 1 */}
-          <div className="space-y-4">
+          <address className="space-y-4 not-italic">
             <h3 className="text-lg font-bold text-black">Καταστήμα 1</h3>
             <div className="text-sm text-[#545144] space-y-1">
-              <p>Κουτάντου 9 </p>
+              <p>Κουτάντου 9</p>
               <p>Ιεράπετρα</p>
               <p>ΤΚ 72200</p>
-              <p>2842 022463</p>
+              <p>
+                <a
+                  href="tel:2842022463"
+                  className="hover:text-red-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-[#ddccaa] focus:rounded px-1 py-0.5"
+                  aria-label="Κλήση στο κεντρικό κατάστημα"
+                >
+                  2842 022463
+                </a>
+              </p>
             </div>
-          </div>
+          </address>
+
           {/* Column 4: Store 2 */}
-          <div className="space-y-4">
+          <address className="space-y-4 not-italic">
             <h3 className="text-lg font-bold text-black">Καταστήμα 2</h3>
             <div className="text-sm text-[#545144] space-y-1">
-              <p>Δημοκρατίας 1 </p>
+              <p>Δημοκρατίας 1</p>
               <p>Ιεράπετρα</p>
               <p>ΤΚ 72200</p>
-              <p>2842 026410</p>
+              <p>
+                <a
+                  href="tel:2842026410"
+                  className="hover:text-red-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-[#ddccaa] focus:rounded px-1 py-0.5"
+                  aria-label="Κλήση στο υποκατάστημα καφέ"
+                >
+                  2842 026410
+                </a>
+              </p>
             </div>
-          </div>
+          </address>
+
           {/* Column 5: Social Media */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-black">
@@ -70,10 +96,13 @@ const Footer = () => {
                     key={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="hover:scale-105 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-[#ddccaa] focus:rounded p-1"
+                    aria-label={`${link.label} σε νέα καρτέλα`}
                   >
                     <IconComponent
                       size={20}
-                      className="text-red-800 hover:scale-105 transition-colors duration-200"
+                      className="text-red-800"
+                      aria-hidden="true"
                     />
                   </Link>
                 );
@@ -82,8 +111,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
       {/* Bottom Section */}
-      <div className="border-t border-[#b0a181]  md:w-[80%] mx-auto">
+      <div className="border-t border-[#b0a181] md:w-[80%] mx-auto">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex flex-col justify-center items-center gap-4">
             {/* Left: Logo and Brand */}
@@ -94,13 +124,13 @@ const Footer = () => {
             {/* Right: Copyright */}
             <div className="flex items-center gap-4">
               <p className="text-sm text-gray-600">
-                © 2025|powered by <strong> G.Giannikakis</strong>
+                © 2025|powered by <strong>G.Giannikakis</strong>
               </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

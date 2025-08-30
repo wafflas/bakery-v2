@@ -75,21 +75,21 @@ const ProductsIntro = () => {
       subtitle: "παραδοσιακή συνταγή 4 γενεών",
       image: "/images/banners/topswmi.jpg",
       alt: "Ψωμί",
-      href: "/products/bread",
+      href: "/products",
     },
     {
       title: "Ζαχαροπλαστική",
       subtitle: "γλυκά & εκλεκτά",
       image: "/images/gluka.jpg",
       alt: "Γλυκά",
-      href: "/products/sweets",
+      href: "/products",
     },
     {
       title: "Καφές & Αρτοσκευάσματα",
       subtitle: "άρτιος καφές",
       image: "/images/kafes1.jpg",
       alt: "Καφές",
-      href: "/products/coffee",
+      href: "/products",
     },
   ];
 

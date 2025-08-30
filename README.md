@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Αρτοποιία Κουγιουμουτζάκης - Bakery Website
 
-## Getting Started
+A modern, accessible bakery website built with Next.js, featuring traditional Greek bakery products and a rich family history dating back to 1916.
 
-First, run the development server:
+## 🌟 Features
+
+- **Responsive Design**: Mobile-first approach with modern UI/UX
+- **Accessibility First**: WCAG 2.2 AA compliant with comprehensive accessibility features
+- **GSAP Animations**: Smooth scroll-triggered animations
+- **Greek Language Support**: Full Greek language interface
+- **Performance Optimized**: Next.js 14 with Image optimization
+
+## ♿ Accessibility Features
+
+This website follows WCAG 2.2 guidelines and includes:
+
+- **Semantic HTML**: Proper heading hierarchy, landmarks, and lists
+- **Keyboard Navigation**: Full keyboard accessibility with visible focus states
+- **Screen Reader Support**: ARIA labels, descriptions, and semantic markup
+- **Color Contrast**: Meets AA contrast requirements
+- **Reduced Motion**: Respects user motion preferences
+- **Skip Navigation**: Quick access to main content
+- **Focus Management**: Proper focus handling for modals and dynamic content
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or pnpm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone [repository-url]
+
+# Install dependencies
+npm install
+# or
+pnpm install
+
+# Run development server
 npm run dev
 # or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧪 Testing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Accessibility Testing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Run accessibility tests
+npm run test:accessibility
 
-## Learn More
+# Build and test accessibility
+npm run build:accessibility
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Manual Accessibility Checks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Keyboard Navigation**: Tab through all interactive elements
+2. **Screen Reader**: Test with NVDA, JAWS, or VoiceOver
+3. **Color Contrast**: Use browser dev tools or axe-core
+4. **Focus Management**: Ensure focus is properly managed in modals
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 Pages
 
-## Deploy on Vercel
+- **Home** (`/`): Landing page with product introduction
+- **Bakery** (`/bakery`): Family history and story
+- **Products** (`/products`): Product catalog with search and filtering
+- **Stores** (`/stores`): Store locations and delivery information
+- **Contact** (`/contact`): Contact form and information
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Design System
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Colors**: Red-800 primary with accessible contrast ratios
+- **Typography**: Fira Sans for optimal readability
+- **Spacing**: Consistent 4px grid system
+- **Components**: Reusable, accessible component library
+
+## 🔧 Technical Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Animations**: GSAP with ScrollTrigger
+- **Icons**: Lucide React
+- **Images**: Next.js Image optimization
+- **Accessibility**: axe-core, jest-axe
+
+## 📋 Accessibility Checklist
+
+- [x] Semantic HTML structure
+- [x] Proper heading hierarchy (h1-h6)
+- [x] ARIA labels and descriptions
+- [x] Keyboard navigation support
+- [x] Focus management
+- [x] Color contrast compliance
+- [x] Screen reader compatibility
+- [x] Reduced motion support
+- [x] Skip navigation links
+- [x] Form labels and descriptions
+- [x] Image alt text
+- [x] Error handling and announcements
+
+## 🌐 Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## 📄 License
+
+This project is private and proprietary to Αρτοποιία Κουγιουμουτζάκης.
+
+## 🤝 Contributing
+
+For accessibility improvements or bug reports, please contact the development team.
+
+---
+
+Built with ❤️ and accessibility in mind for all users.

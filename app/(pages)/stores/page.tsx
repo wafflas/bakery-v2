@@ -258,7 +258,7 @@ const Page = () => {
             </p>
 
             <div className="mt-4 flex flex-row gap-6 items-center justify-between">
-              <ul className="space-y-2 text-[#3d3b32] lg:text-xl">
+              <ul className="space-y-2 text-[#3d3b32] text-sm w-full lg:text-xl">
                 <li className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-[#00b5e2]" />
                   Γρήγορη παράδοση
@@ -287,7 +287,7 @@ const Page = () => {
                   href="https://wolt.com/el/grc/ierapetra/restaurant/kouyioumatzakis-bakery-coffee"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl bg-[#00b5e2] px-4 py-2 text-white font-semibold shadow-sm hover:bg-[#00a2ca] transition-colors"
+                  className="inline-flex items-center justify-center rounded-xl bg-[#00b5e2] px-4 py-2 text-white text-sm font-semibold shadow-sm hover:bg-[#00a2ca] transition-colors"
                 >
                   Παραγγείλετε τώρα
                 </a>

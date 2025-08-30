@@ -238,21 +238,22 @@ const Slideshow = () => {
           priority={true}
           className="pointer-events-none  h-auto w-60 md:w-60 lg:w-64 xl:w-72 drop-shadow-2xl"
         />
+        <div className="flex flex-col items-center justify-center">
+          <h1
+            ref={titleRef}
+            className="text-2xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center leading-tight"
+            style={{ textShadow: "0 4px 8px rgba(0, 0, 0, 0.3)" }}
+          >
+            Αρτοποιία Κουγιουμουτζάκης
+          </h1>
 
-        <h1
-          ref={titleRef}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center leading-tight"
-          style={{ textShadow: "0 4px 8px rgba(0, 0, 0, 0.3)" }}
-        >
-          Αρτοποιία Κουγιουμουτζάκης
-        </h1>
-
-        <p
-          ref={subtitleRef}
-          className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-center max-w-4xl leading-relaxed px-4 drop-shadow-md"
-        >
-          Παραδοσιακός Κρητικός Φούρνος από το 1916
-        </p>
+          <p
+            ref={subtitleRef}
+            className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-center max-w-4xl leading-relaxed px-4 drop-shadow-md"
+          >
+            Παραδοσιακός Κρητικός Φούρνος από το 1916
+          </p>
+        </div>
 
         <Link
           ref={buttonRef}

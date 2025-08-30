@@ -27,9 +27,9 @@ const productCategories = [
         description: "Κλασικός λευκός άρτος",
       },
       {
-        name: "Άρτος Σολιχάς",
+        name: "Άρτος Ολικής Άλεσης",
         image: "/images/products/pswmia/artosolikhsaleshs.jpg",
-        description: "Άρτος με σολιχά",
+        description: "Άρτος Ολικής Άλεσης",
       },
       {
         name: "Άρτος Πολύσπορος",
@@ -42,9 +42,9 @@ const productCategories = [
         description: "Προζυμένιος άρτος",
       },
       {
-        name: "Άρτος Προζυμένιος Αργυρομάντσας",
+        name: "Άρτος Προζυμένιος ωργής ωρίμανσης",
         image: "/images/products/pswmia/artosprozymeniosarghswrimanshs.jpg",
-        description: "Προζυμένιος άρτος Αργυρομάντσας",
+        description: "Προζυμένιος άρτος αργής ωρίμανσης",
       },
       {
         name: "Άρτος Σικάλεως",
@@ -120,9 +120,9 @@ const productCategories = [
         description: "Χωριάτικη πίτα με σπανάκι",
       },
       {
-        name: "Ψωμί Μερίγανη",
+        name: "Ψωμί με ρίγανη",
         image: "/images/products/prwina/pswmimeriganh.jpg",
-        description: "Ψωμί με μέριγκα",
+        description: "Ψωμί με ρίγανη",
       },
       {
         name: "Τυροπίτα Κλασική",
@@ -143,7 +143,7 @@ const productCategories = [
         description: "Κλασικά κουλουράκια",
       },
       {
-        name: "Κουλουράκια Προζύμια",
+        name: "Κουλουράκια Προζυμένια",
         image: "/images/products/kerasmata/koulourakiaprozumenia.jpg",
         description: "Κουλουράκια με προζύμι",
       },
@@ -158,19 +158,19 @@ const productCategories = [
         description: "Παραδοσιακό τσουρέκι",
       },
       {
-        name: "Βουθμάτα Αμυγδάλου",
+        name: "Βουτήματα Αμυγδάλου",
         image: "/images/products/kerasmata/vouthmataamugdalou.jpg",
-        description: "Βουθμάτα με αμύγδαλα",
+        description: "Βουτήματα με αμύγδαλα",
       },
       {
-        name: "Βουθμάτα Κριθινάκια",
+        name: "Βουτήματα Κριθινάκια",
         image: "/images/products/kerasmata/vouthmatakrithinakia.jpg",
-        description: "Βουθμάτα με κριθινάκια",
+        description: "Βουτήματα με κριθινάκια",
       },
       {
-        name: "Βουθμάτα Πορτοκάλι",
+        name: "Βουτήματα Πορτοκαλιού",
         image: "/images/products/kerasmata/vouthmataportokaliou.jpg",
-        description: "Βουθμάτα με πορτοκάλι",
+        description: "Βουτήματα με πορτοκάλι",
       },
     ],
   },
@@ -188,7 +188,7 @@ const productCategories = [
       {
         name: "Λουκανικόπιτα",
         image: "/images/products/sfoliates/loukanikopita.jpg",
-        description: "Πίτα με λουκάνικα",
+        description: "Σφολιάτα με λουκάνικο",
       },
       {
         name: "Πίτα Χωριάτικη Κοτόπουλο",
@@ -219,14 +219,14 @@ const productCategories = [
     description: "Φρέσκα σάντουιτς με ποιοτικά υλικά για κάθε ώρα της ημέρας",
     products: [
       {
-        name: "Σάντουιτς Γαλοπούλα Φουά Γκρα",
+        name: "Σάντουϊτς Γαλοπούλα Fuantre",
         image: "/images/products/sandwich/sandwichgalopoulafuantre.jpg",
-        description: "Σάντουιτς με γαλοπούλα και φουά γκρα",
+        description: "Σάντουιτς με γαλοπούλα Fuantre",
       },
       {
-        name: "Σάντουιτς Μορταντέλα",
+        name: "Σάντουϊτς Μορταδέλα",
         image: "/images/products/sandwich/sandwichmortadela.jpg",
-        description: "Σάντουιτς με μορταντέλα",
+        description: "Σάντουιτς με μορταδέλα",
       },
       {
         name: "Σάντουιτς Πέστο Και Μοτσαρέλα",
@@ -357,7 +357,7 @@ const ProductsPage = () => {
             ease: "power3.out",
             scrollTrigger: {
               trigger: productsRef.current,
-              start: "top 85%",
+              start: "top 100%",
               end: "top 15%",
               toggleActions: "play none none reverse",
             },
@@ -431,10 +431,10 @@ const ProductsPage = () => {
             <div className="flex flex-wrap justify-center gap-3 md:gap-4">
               <button
                 onClick={() => setSelectedCategory("all")}
-                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 cursor-pointer ${
                   selectedCategory === "all"
                     ? "bg-red-800 text-white shadow-lg scale-105"
-                    : "bg-white text-gray-700 hover:bg-red-50 hover:scale-105"
+                    : "bg-white text-gray-700 hover:bg-red-200 hover:scale-105"
                 }`}
               >
                 Όλα
@@ -443,10 +443,10 @@ const ProductsPage = () => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                  className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 cursor-pointer ${
                     selectedCategory === category.id
                       ? "bg-red-800 text-white shadow-lg scale-105"
-                      : "bg-white text-gray-700 hover:bg-red-50 hover:scale-105"
+                      : "bg-white text-gray-700 hover:bg-red-200 hover:scale-105"
                   }`}
                 >
                   {category.title}
