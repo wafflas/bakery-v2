@@ -268,7 +268,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <Navbar />
       <Banner
         title="Φούρνος"
