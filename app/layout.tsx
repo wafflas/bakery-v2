@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Αρτοποιία Κουγιουμουτζάκης",
     images: [
       {
-        url: "/og.png",
+        url: "/images/og.png",
         width: 1200,
         height: 630,
         alt: "Αρτοποιία Κουγιουμουτζάκης",
