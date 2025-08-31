@@ -8,15 +8,28 @@ export const metadata: Metadata = {
   description:
     "Παραδοσιακός φούρνος στην Ιεράπετρα με τέσσερις γενιές εμπειρίας. Φρέσκο ψωμί, ζαχαροπλαστικά και καφές με αγάπη και φροντίδα.",
   keywords:
-    "αρτοποιία, φούρνος, ψωμί, Ιεράπετρα, παραδοσιακός, ζαχαροπλαστικά, καφές",
+    "αρτοποιία, φούρνος, ψωμί, Ιεράπετρα, παραδοσιακός, ζαχαροπλαστείο, καφές, κουγιουμουτζάκης, Κρήτη",
   authors: [{ name: "Αρτοποιία Κουγιουμουτζάκης" }],
   robots: "index, follow",
+  metadataBase: new URL("https://www.kougioumoutzakisbakery.gr"),
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Αρτοποιία Κουγιουμουτζάκης",
     description: "Παραδοσιακός φούρνος από το 1916",
     type: "website",
     locale: "el_GR",
+    url: "https://www.kougioumoutzakisbakery.gr/",
+    siteName: "Αρτοποιία Κουγιουμουτζάκης",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Αρτοποιία Κουγιουμουτζάκης",
+      },
+    ],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
@@ -48,6 +61,30 @@ export default function RootLayout({
 
         <RouteLoadingOverlay />
         {children}
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              url: "https://www.kougioumoutzakisbakery.gr",
+              name: "Αρτοποιία Κουγιουμουτζάκης",
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Αρτοποιία Κουγιουμουτζάκης",
+              url: "https://www.kougioumoutzakisbakery.gr",
+              logo: "https://www.kougioumoutzakisbakery.gr/logos/logo.png",
+            }),
+          }}
+        />
       </body>
     </html>
   );
