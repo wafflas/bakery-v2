@@ -137,7 +137,7 @@ const Page = () => {
                 alt="Κεντρικό κατάστημα - Αρτοποιείο"
                 width={1200}
                 height={900}
-                className="w-full h-64 md:h-80 object-cover transition-transform duration-500 hover:scale-[1.02]"
+                className="w-full h-64 md:h-96 object-cover transition-transform duration-500 hover:scale-[1.02]"
                 priority
               />
               <span className="absolute left-3 top-3 rounded-full bg-black/70 text-white text-xs font-semibold px-3 py-1 ring-1 ring-black/20">

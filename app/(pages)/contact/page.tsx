@@ -40,7 +40,7 @@ const ContactPage = () => {
     const id = setTimeout(() => {
       setDeferMaps(false);
       setMapLoading(Array(locations.length).fill(true));
-    }, 500); // align with your page spinner/min delay
+    }, 500); 
     return () => clearTimeout(id);
   }, [locations.length]);
 

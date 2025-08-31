@@ -369,7 +369,7 @@ const ProductsPage = () => {
     return () => ctx.revert();
   }, []);
 
-  // Filter products based on search and category
+ 
   const filteredProducts = productCategories
     .filter(
       (category) =>
@@ -459,10 +459,10 @@ const ProductsPage = () => {
         {/* Products Grid */}
         <section ref={productsRef}>
           {selectedCategory === "all" ? (
-            // Show all categories with their products (with search filtering)
+         
             <div className="space-y-16">
               {(() => {
-                // Filter all categories and check if any have products
+             
                 const categoriesWithProducts = productCategories
                   .map((category) => {
                     const categoryProducts = category.products.filter(
@@ -478,7 +478,7 @@ const ProductsPage = () => {
                   })
                   .filter((category) => category.filteredProducts.length > 0);
 
-                // If no products found across all categories, show not found message
+               
                 if (categoriesWithProducts.length === 0) {
                   return (
                     <div className="text-center py-16">
@@ -537,7 +537,7 @@ const ProductsPage = () => {
                   );
                 }
 
-                // Show categories with filtered products
+                
                 return categoriesWithProducts.map((category) => (
                   <div key={category.id} className="space-y-8">
                     <div className="text-center">
@@ -654,7 +654,7 @@ const ProductsPage = () => {
                   </div>
                 </div>
               ) : (
-                // Show filtered products
+               
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {filteredProducts.map((product, index) => (
                     <div
