@@ -322,7 +322,7 @@ export default function StoresClient() {
             </div>
           </dl>
           <p className="mt-2 text-sm text-[#3d3b32]/70">
-            Οι ώρες αφορούν διανομή κατ' οίκον.
+            Οι ώρες αφορούν διανομή κατ&apos; οίκον.
           </p>
           <Image
             src="/logos/wolt-logo.png"
