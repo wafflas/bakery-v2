@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Fira_Sans } from "next/font/google";
+import PageImageLoader from "./components/PageImageLoader";
 
 export const metadata: Metadata = {
   title: "Αρτοποιία Κουγιουμουτζάκης - Παραδοσιακός φούρνος από το 1916",
@@ -58,6 +59,7 @@ export default function RootLayout({
           Πήγαινε στο κύριο περιεχόμενο
         </a>
 
+        <PageImageLoader />
         {children}
 
         {/* WebSite Schema */}
