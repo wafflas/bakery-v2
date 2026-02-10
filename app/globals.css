@@ -23,6 +23,14 @@
   outline-offset: 3px;
 }
 
+/* Simple focus indicators for interactive elements (links, buttons) */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -299,6 +307,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --focus-ring-color: #991b1b; /* Red-800 for focus indicators */
+  --focus-ring-offset: 2px;
 }
 
 @theme inline {

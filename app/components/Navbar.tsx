@@ -33,7 +33,7 @@ const Navbar = () => {
           .fromTo(
             mobileMenuRef.current,
             { x: "100%" },
-            { x: "0%", duration: 0.4, ease: "power2.out" }
+            { x: "0%", duration: 0.4, ease: "power2.out" },
           )
           // Animate menu items with stagger
           .fromTo(
@@ -46,7 +46,7 @@ const Navbar = () => {
               stagger: 0.1,
               ease: "power2.out",
             },
-            "-=0.2"
+            "-=0.2",
           )
           // Animate social icons
           .fromTo(
@@ -59,7 +59,7 @@ const Navbar = () => {
               stagger: 0.05,
               ease: "power2.out",
             },
-            "-=0.1"
+            "-=0.1",
           );
       } else {
         // Slide out animation
@@ -82,7 +82,7 @@ const Navbar = () => {
         gsap.fromTo(
           overlayRef.current,
           { opacity: 0 },
-          { opacity: 1, duration: 0.3, ease: "power2.out" }
+          { opacity: 1, duration: 0.3, ease: "power2.out" },
         );
       }
     }
@@ -124,25 +124,24 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full p-3 z-70 rounded-t-lg ${
+        className={`fixed top-0 left-0 w-full p-3 z-[70] rounded-t-lg ${
           !isNotHomePage && !isScrolled
             ? "bg-transparent text-white"
             : "bg-white text-[#3d3b32] backdrop-blur-lg shadow-lg "
         } ${!isNotHomePage ? "transition-colors duration-500" : ""}`}
-        role="navigation"
         aria-label="Κύρια πλοήγηση"
       >
-        <div className="flex h-[60px] w-full sticky top-0 z-70 items-center p-4">
+        <div className="flex h-[60px] w-full items-center p-4">
           <Link
             href="/"
-            className="flex items-center justify-start gap-2 w-1/3"
+            className="flex items-center justify-start gap-2"
             aria-label="Αρχική σελίδα - Αρτοποιία Κουγιουμουτζάκης"
           >
             <Logo size={80} />
           </Link>
 
           {/* Desktop Navigation Links - Hidden on mobile */}
-          <div className="hidden lg:flex flex-row items-center gap-20 font-bold text-lg justify-center w-1/3">
+          <div className="hidden lg:flex flex-row items-center gap-20 font-bold text-lg justify-center flex-1">
             {links.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -172,9 +171,11 @@ const Navbar = () => {
                   href={link.href}
                   key={link.label}
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
                   className="text-2xl hover:scale-105 transition-all duration-300"
                 >
-                  <IconComponent />
+                  <IconComponent aria-hidden="true" />
                 </Link>
               );
             })}
@@ -183,9 +184,14 @@ const Navbar = () => {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 rounded-md cursor-pointer transition-all duration-200 ml-2"
-              aria-label="Toggle mobile menu"
+              aria-label={isMobileMenuOpen ? "Κλείσιμο μενού" : "Άνοιγμα μενού"}
+              aria-expanded={isMobileMenuOpen}
             >
-              {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+              {isMobileMenuOpen ? (
+                <X size={26} aria-hidden="true" />
+              ) : (
+                <Menu size={26} aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
@@ -195,16 +201,20 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div
           ref={overlayRef}
-          className="fixed inset-0  bg-opacity-20 z-70 lg:hidden"
+          className="fixed inset-0  bg-opacity-20 z-[69] lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
         />
       )}
 
       {/* Mobile Menu Slide Panel */}
       <div
         ref={mobileMenuRef}
-        className="fixed top-0 right-0 h-full w-1/2 max-w-sm bg-white shadow-2xl z-70 lg:hidden"
+        className="fixed top-0 right-0 h-full w-1/2 max-w-sm bg-white shadow-2xl z-[70] lg:hidden"
         style={{ display: "none" }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Μενού πλοήγησης"
       >
         {/* Menu Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -249,9 +259,11 @@ const Navbar = () => {
                   href={link.href}
                   key={link.label}
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
                   className="social-icon text-2xl text-[#3d3b32] hover:text-red-800 hover:scale-110 transition-all duration-300"
                 >
-                  <IconComponent />
+                  <IconComponent aria-hidden="true" />
                 </Link>
               );
             })}
