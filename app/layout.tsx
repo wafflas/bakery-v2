@@ -43,6 +43,9 @@ const firaSans = Fira_Sans({
   display: "swap",
 });
 
+import GoogleAnalytics from "./components/GoogleAnalytics";
+import CookieConsentBanner from "./components/CookieConsentBanner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -51,6 +54,7 @@ export default function RootLayout({
   return (
     <html lang="el" dir="ltr">
       <body className={`${firaSans.className} antialiased`}>
+        <GoogleAnalytics />
         {/* Skip Navigation Link */}
         <a
           href="#main-content"
@@ -60,6 +64,7 @@ export default function RootLayout({
         </a>
 
         <PageImageLoader />
+        <CookieConsentBanner />
         {children}
 
         {/* WebSite Schema */}
