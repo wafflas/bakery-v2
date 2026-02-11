@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Cookie, ShieldCheck, Settings } from "lucide-react";
+import { Cookie } from "lucide-react";
 import {
   CookieConsent,
   defaultConsent,
@@ -40,7 +40,7 @@ const CookieConsentBanner = () => {
     window.location.reload();
   };
 
-  const handleSaveSettings = (consent: CookieConsent) => {
+  const handleSaveSettings = () => {
     setShowBanner(false);
     window.location.reload();
   };
