@@ -1,38 +1,23 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useMemo } from "react";
+import { motion } from "framer-motion";
 import { reviews } from "@/app/data/reviews";
 import ReviewBox from "../arxikh/ReviewBox";
 import Image from "next/image";
 
+const REVIEW_LOOP_COUNT = 3;
+
 const ReviewSection = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    let animationFrameId: number;
-    let scrollAmount = 0;
-    const speed = 1;
-
-    const scroll = () => {
-      if (!scrollContainer) return;
-      scrollAmount += speed;
-      // When scrolled the width of one set reset to 0
-      const singleSetWidth = scrollContainer.scrollWidth / 2;
-      if (scrollAmount >= singleSetWidth) {
-        scrollAmount = 0;
-      }
-      scrollContainer.style.transform = `translateX(-${scrollAmount}px)`;
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    animationFrameId = requestAnimationFrame(scroll);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+  const loopedReviews = useMemo(
+    () =>
+      Array.from({ length: REVIEW_LOOP_COUNT }, (_, loopIndex) =>
+        reviews.map((review) => ({
+          ...review,
+          uniqueKey: `${review.id}-loop-${loopIndex}`,
+        })),
+      ).flat(),
+    [],
+  );
 
   return (
     <div className="w-full py-16 bg-gray-50">
@@ -48,25 +33,28 @@ const ReviewSection = () => {
             height={150}
           />
         </div>
-        <div className="overflow-hidden">
-          <div
-            ref={scrollRef}
-            className="flex gap-6 will-change-transform"
-            style={{ width: "max-content" }}
+        <div className="relative flex overflow-x-hidden">
+          <motion.div
+            className="flex gap-6 py-4"
+            animate={{
+              x: [0, "-33.33%"],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 30,
+                ease: "linear",
+              },
+            }}
+            style={{ width: "fit-content" }}
           >
-            {[...Array(2)].map((_, setIndex) => (
-              <div key={`set-${setIndex}`} className="flex gap-6">
-                {reviews.map((review) => (
-                  <div
-                    key={`${setIndex}-${review.id}`}
-                    className="flex-shrink-0"
-                  >
-                    <ReviewBox review={review} stars={review.stars} />
-                  </div>
-                ))}
+            {loopedReviews.map((review) => (
+              <div key={review.uniqueKey} className="flex-shrink-0">
+                <ReviewBox review={review} stars={review.stars} />
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

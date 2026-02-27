@@ -8,6 +8,7 @@ import {
   getCookieConsent,
   setCookieConsent,
 } from "../../lib/cookies";
+import { Switch } from "./ui/switch";
 
 interface CookieSettingsProps {
   isOpen: boolean;
@@ -88,15 +89,8 @@ const CookieSettings = ({ isOpen, onClose, onSave }: CookieSettingsProps) => {
                   ιστότοπου και δεν μπορούν να απενεργοποιηθούν.
                 </p>
               </div>
-              <div className="relative inline-flex items-center cursor-not-allowed opacity-50">
-                <input
-                  type="checkbox"
-                  checked={true}
-                  disabled
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-red-800 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300"></div>
-                <div className="absolute top-1 left-1 bg-white border-gray-300 border rounded-full h-4 w-4 transition-all peer-checked:translate-x-full"></div>
+              <div className="flex items-center space-x-2 opacity-50">
+                <Switch checked={true} disabled />
               </div>
             </div>
 
@@ -111,16 +105,12 @@ const CookieSettings = ({ isOpen, onClose, onSave }: CookieSettingsProps) => {
                   μας, ώστε να τον βελτιώσουμε.
                 </p>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
+              <div className="flex items-center space-x-2">
+                <Switch
                   checked={consent.analytics}
-                  onChange={() => handleToggle("analytics")}
-                  className="sr-only peer"
+                  onCheckedChange={() => handleToggle("analytics")}
                 />
-                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 peer-checked:bg-red-800 transition-colors"></div>
-                <div className="absolute top-1 left-1 bg-white border border-gray-300 rounded-full h-4 w-4 transition-all peer-checked:translate-x-full"></div>
-              </label>
+              </div>
             </div>
           </div>
         </div>

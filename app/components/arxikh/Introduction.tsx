@@ -25,13 +25,13 @@ const Introduction = () => {
       gsap.set(cardRef.current, { opacity: 0, y: 40 });
       gsap.set(
         q(
-          ".intro-eyebrow, .intro-title, .intro-sub, .intro-p, .intro-li, .intro-cta, .intro-stat"
+          ".intro-eyebrow, .intro-title, .intro-sub, .intro-p, .intro-li, .intro-cta, .intro-stat",
         ),
-        { opacity: 0, y: 16 }
+        { opacity: 0, y: 16 },
       );
       gsap.set(
         [photoMainRef.current, photoInsetRef.current, mobilePhotoRef.current],
-        { opacity: 0, y: 30, scale: 0.98, rotate: -2 }
+        { opacity: 0, y: 30, scale: 0.98, rotate: -2 },
       );
 
       // reveal on scroll
@@ -53,17 +53,17 @@ const Introduction = () => {
         .to(
           ".intro-eyebrow",
           { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
-          "-=0.2"
+          "-=0.2",
         )
         .to(
           ".intro-title",
           { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" },
-          "-=0.1"
+          "-=0.1",
         )
         .to(
           ".intro-sub",
           { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-          "-=0.3"
+          "-=0.3",
         )
         .to(
           ".intro-p",
@@ -74,7 +74,7 @@ const Introduction = () => {
             ease: "power2.out",
             stagger: 0.06,
           },
-          "-=0.3"
+          "-=0.3",
         )
         .to(
           ".intro-li",
@@ -85,7 +85,7 @@ const Introduction = () => {
             ease: "power2.out",
             stagger: 0.05,
           },
-          "-=0.35"
+          "-=0.35",
         )
         .to(
           ".intro-stat",
@@ -96,12 +96,12 @@ const Introduction = () => {
             ease: "power2.out",
             stagger: 0.05,
           },
-          "-=0.35"
+          "-=0.35",
         )
         .to(
           ".intro-cta",
           { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-          "-=0.2"
+          "-=0.2",
         )
         .to(
           photoMainRef.current,
@@ -113,7 +113,7 @@ const Introduction = () => {
             duration: 0.7,
             ease: "power2.out",
           },
-          "-=0.25"
+          "-=0.25",
         )
         .to(
           photoInsetRef.current,
@@ -125,7 +125,7 @@ const Introduction = () => {
             duration: 0.7,
             ease: "power2.out",
           },
-          "-=0.5"
+          "-=0.5",
         )
         .to(
           mobilePhotoRef.current,
@@ -137,25 +137,10 @@ const Introduction = () => {
             duration: 0.6,
             ease: "power2.out",
           },
-          "-=0.5"
+          "-=0.5",
         );
 
-      // desktop gentle float loop
-      gsap.to(photoMainRef.current, {
-        y: -6,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-      gsap.to(photoInsetRef.current, {
-        y: -4,
-        duration: 2.6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 0.2,
-      });
+      // Desktop gentle float loop handled by CSS now (animate-float)
 
       // number counters (animate from 1 to data-target)
       q(".intro-stat-num").forEach((el) => {
@@ -187,10 +172,10 @@ const Introduction = () => {
     >
       <div
         ref={cardRef}
-        className="relative mx-auto w-full max-w-[100rem] xl:max-w-[110rem] overflow-hidden rounded-[28px] md:rounded-[40px] shadow-[0_24px_70px_rgba(0,0,0,0.12)] ring-1 ring-black/5 bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] min-h-[72vh] md:min-h-[620px] lg:min-h-[760px]"
+        className="relative mx-auto w-full max-w-[100rem] xl:max-w-[110rem] overflow-hidden rounded-[28px] md:rounded-[40px] shadow-[0_24px_70px_rgba(0,0,0,0.12)] ring-1 ring-black/5 bg-gradient-to-br from-[#fde8bf] via-[#fee2b1] to-[#f9dba5] min-h-[72vh] md:min-h-[620px] lg:min-h-[760px] will-change-transform will-change-opacity"
       >
         {/* background pattern */}
-        <div className="pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay [background-image:radial-gradient(rgba(255,255,255,0.55)_1px,transparent_1px)] [background-size:18px_18px]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:radial-gradient(black_1px,transparent_1px)] [background-size:18px_18px]" />
 
         {/* mobile hero image */}
         <div className="relative lg:hidden">
@@ -213,7 +198,7 @@ const Introduction = () => {
               Από το 1916
             </p>
 
-            <h2 className="intro-title mt-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#3d3b32]">
+            <h2 className="intro-title mt-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#3d3b32] will-change-transform will-change-opacity">
               Αρτοποιία <span className="text-red-800">Κουγιουμουτζάκης</span>
             </h2>
 
@@ -259,16 +244,22 @@ const Introduction = () => {
             {/* Stats with GSAP counters */}
             <div className="mt-8 grid grid-cols-3 gap-3 sm:gap-6 max-w-md">
               <div className="intro-stat">
-                <p className="text-3xl md:text-4xl font-extrabold text-[#3d3b32]">
-                  <span className="intro-stat-num" data-target="4">
+                <p className="text-3xl md:text-4xl font-extrabold text-[#3d3b32] flex items-baseline">
+                  <span
+                    className="intro-stat-num inline-block w-[24px] text-center"
+                    data-target="4"
+                  >
                     1
                   </span>
                 </p>
                 <p className="text-sm md:text-base text-[#3d3b32]/70">Γενιές</p>
               </div>
               <div className="intro-stat">
-                <p className="text-3xl md:text-4xl font-extrabold text-[#3d3b32]">
-                  <span className="intro-stat-num" data-target="100">
+                <p className="text-3xl md:text-4xl font-extrabold text-[#3d3b32] flex items-baseline">
+                  <span
+                    className="intro-stat-num inline-block w-[68px] text-center"
+                    data-target="100"
+                  >
                     1
                   </span>
                   <span>+</span>
@@ -276,8 +267,11 @@ const Introduction = () => {
                 <p className="text-sm md:text-base text-[#3d3b32]/70">Χρόνια</p>
               </div>
               <div className="intro-stat">
-                <p className="text-3xl md:text-4xl font-extrabold text-[#3d3b32]">
-                  <span className="intro-stat-num" data-target="100">
+                <p className="text-3xl md:text-4xl font-extrabold text-[#3d3b32] flex items-baseline">
+                  <span
+                    className="intro-stat-num inline-block w-[68px] text-center"
+                    data-target="100"
+                  >
                     1
                   </span>
                   <span>+</span>
@@ -309,30 +303,34 @@ const Introduction = () => {
           <div className="relative hidden lg:block">
             <div
               ref={photoMainRef}
-              className="absolute -right-2 top-2 w-[68%] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl"
+              className="absolute -right-2 top-2 w-[68%] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl will-change-transform will-change-opacity"
             >
-              <Image
-                src="/images/mizes.jpg"
-                alt="Φρέσκο πρωινό"
-                fill
-                sizes="(min-width:1024px) 44vw"
-                className="object-cover"
-                priority={false}
-              />
+              <div className="w-full h-full animate-float">
+                <Image
+                  src="/images/mizes.jpg"
+                  alt="Φρέσκο πρωινό"
+                  fill
+                  sizes="(min-width:1024px) 44vw"
+                  className="object-cover"
+                  priority={false}
+                />
+              </div>
             </div>
 
             <div
               ref={photoInsetRef}
-              className="absolute left-0 bottom-0 w-[52%] aspect-square rounded-3xl overflow-hidden shadow-xl "
+              className="absolute left-0 bottom-0 w-[52%] aspect-square rounded-3xl overflow-hidden shadow-xl will-change-transform will-change-opacity"
             >
-              <Image
-                src="/images/giagia.jpg"
-                alt="Παράδοση από γενιά σε γενιά"
-                fill
-                sizes="(min-width:1024px) 32vw"
-                className="object-cover"
-                priority={false}
-              />
+              <div className="w-full h-full animate-float-delayed">
+                <Image
+                  src="/images/giagia.jpg"
+                  alt="Παράδοση από γενιά σε γενιά"
+                  fill
+                  sizes="(min-width:1024px) 32vw"
+                  className="object-cover"
+                  priority={false}
+                />
+              </div>
             </div>
           </div>
         </div>
