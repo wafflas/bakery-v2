@@ -305,32 +305,28 @@ const Introduction = () => {
               ref={photoMainRef}
               className="absolute -right-2 top-2 w-[68%] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl will-change-transform will-change-opacity"
             >
-              <div className="w-full h-full animate-float">
-                <Image
-                  src="/images/mizes.jpg"
-                  alt="Φρέσκο πρωινό"
-                  fill
-                  sizes="(min-width:1024px) 44vw"
-                  className="object-cover"
-                  priority={false}
-                />
-              </div>
+              <Image
+                src="/images/mizes.jpg"
+                alt="Φρέσκο πρωινό"
+                fill
+                sizes="(min-width:1024px) 44vw"
+                className="object-cover"
+                priority={false}
+              />
             </div>
 
             <div
               ref={photoInsetRef}
               className="absolute left-0 bottom-0 w-[52%] aspect-square rounded-3xl overflow-hidden shadow-xl will-change-transform will-change-opacity"
             >
-              <div className="w-full h-full animate-float-delayed">
-                <Image
-                  src="/images/giagia.jpg"
-                  alt="Παράδοση από γενιά σε γενιά"
-                  fill
-                  sizes="(min-width:1024px) 32vw"
-                  className="object-cover"
-                  priority={false}
-                />
-              </div>
+              <Image
+                src="/images/giagia.jpg"
+                alt="Παράδοση από γενιά σε γενιά"
+                fill
+                sizes="(min-width:1024px) 32vw"
+                className="object-cover"
+                priority={false}
+              />
             </div>
           </div>
         </div>
